@@ -24,7 +24,7 @@ This repository contains the **web application**, while the mobile app will live
 ## **Folder Structure**
 
 ```
-Elnine-web/
+elnine-web/
 ├─ app/                            # Core Next.js routes and pages
 │  ├─ layout.tsx                    # Root layout (header, footer, sticky player)
 │  ├─ page.tsx                      # Home page (landing page)
@@ -127,7 +127,7 @@ Elnine-web/
 
 ```bash
 git clone https://github.com/<your-username>/Elnine-web.git
-cd Elnine-web
+cd elnine-web
 ```
 
 ### 2. **Install dependencies**

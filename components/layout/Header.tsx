@@ -29,9 +29,9 @@ export default async function Header() {
         </div>
 
         <nav className="hidden sm:flex items-center gap-6 text-sm ml-auto">
-          <Link href="/categories">Categories</Link>
-          <Link href="/creators">Creators</Link>
-          <Link href="/library">Library</Link>
+          <Link href="/#categories">Categories</Link>
+          
+          <Link href="/#library">Library</Link>
           <Link href="/about">About</Link>
         </nav>
 

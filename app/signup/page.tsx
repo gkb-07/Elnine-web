@@ -34,10 +34,10 @@ export default function SignUpPage() {
   };
 
   return (
-    <div className="max-w-md mx-auto p-6 space-y-4 surface shadow-soft border rounded-2xl">
-      <h1 className="text-2xl font-bold">Create account</h1>
+    <div className="max-w-md mx-auto p-8 space-y-6 surface border border-[var(--accent)]/20 rounded-2xl shadow-2xl shadow-[var(--accent)]/10 backdrop-blur-sm">
+      <h1 className="text-3xl font-bold text-center bg-gradient-to-r from-[var(--accent)] to-purple-400 bg-clip-text text-transparent">Join elnine</h1>
 
-      <button onClick={withGoogle} className="w-full border px-4 py-2 rounded-md btn-accent">Continue with Google</button>
+      <button onClick={withGoogle} className="w-full border border-[var(--accent)]/30 px-4 py-3 rounded-lg btn-accent shadow-lg shadow-[var(--accent)]/20 hover:shadow-xl hover:shadow-[var(--accent)]/30 transition-all duration-300">Continue with Google</button>
 
       <div className="relative my-2 text-center">
         <span className="px-2 text-xs muted bg-[var(--surface)] relative z-10">or</span>
@@ -45,18 +45,24 @@ export default function SignUpPage() {
       </div>
 
       <form onSubmit={onSubmit} className="space-y-3">
-        <input name="email" type="email" required placeholder="Email" className="w-full border rounded-md p-2 bg-transparent" />
-        <input name="password" type="password" required placeholder="Password (min 6 chars)" className="w-full border rounded-md p-2 bg-transparent" />
+        <input name="email" type="email" required placeholder="Email" className="w-full border border-[var(--accent)]/30 rounded-lg p-3 bg-[var(--bg)]/50 focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--accent)]/50 focus:outline-none transition-all duration-300 shadow-sm hover:shadow-md" />
+        <input name="password" type="password" required placeholder="Password (min 6 chars)" className="w-full border border-[var(--accent)]/30 rounded-lg p-3 bg-[var(--bg)]/50 focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--accent)]/50 focus:outline-none transition-all duration-300 shadow-sm hover:shadow-md" />
         {error && <p className="text-sm text-red-600">{error}</p>}
         {msg && <p className="text-sm text-green-600">{msg}</p>}
-        <button disabled={loading} className="btn-accent w-full disabled:opacity-60">
+        <button disabled={loading} className="btn-accent w-full disabled:opacity-60 py-3 rounded-lg shadow-lg shadow-[var(--accent)]/30 hover:shadow-xl hover:shadow-[var(--accent)]/50 transition-all duration-300">
           {loading ? "Creating..." : "Sign up"}
         </button>
       </form>
 
-      <p className="text-sm muted">
-        Already have an account? <Link href="/signin" className="text-[var(--accent)] underline">Log in</Link>
-      </p>
+      <div className="pt-4 border-t border-[var(--accent)]/20">
+        <Link 
+          href="/signin" 
+          className="group relative overflow-hidden block rounded-xl bg-gradient-to-r from-[var(--accent)] to-purple-500 px-4 py-3 text-center text-sm font-medium text-white shadow-lg shadow-[var(--accent)]/30 transition-all duration-300 hover:shadow-xl hover:shadow-[var(--accent)]/50 hover:scale-105"
+        >
+          <span className="relative z-10">Already have an account? Sign In</span>
+          <div className="absolute inset-0 bg-gradient-to-r from-purple-600 via-purple-500 to-[var(--accent)] opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
+        </Link>
+      </div>
     </div>
   );
 }

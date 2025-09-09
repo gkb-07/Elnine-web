@@ -13,7 +13,7 @@ export default async function Header() {
   const { data: { user } } = await supabase.auth.getUser();
 
   return (
-    <header className="sticky top-0 z-50 border-b backdrop-blur surface/80">
+    <header className="sticky top-0 z-50 border-b bg-[var(--surface)] shadow-md">
       <div className="container px-4 py-3 flex items-center gap-4">
         <Link href="/" className="text-2xl font-extrabold text-[var(--accent)]">elnine</Link>
 

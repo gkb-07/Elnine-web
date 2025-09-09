@@ -18,13 +18,13 @@ export default function ForgotPasswordPage() {
   };
 
   return (
-    <div className="max-w-md mx-auto p-6 space-y-3">
+    <div className="max-w-md mx-auto p-6 space-y-3 surface shadow-soft border rounded-2xl">
       <h1 className="text-2xl font-bold">Reset password</h1>
       <form onSubmit={onSubmit} className="space-y-3">
-        <input name="email" type="email" required placeholder="Email" className="w-full border rounded p-2" />
+        <input name="email" type="email" required placeholder="Email" className="w-full border rounded-md p-2 bg-transparent" />
         {error && <p className="text-sm text-red-600">{error}</p>}
         {msg && <p className="text-sm text-green-600">{msg}</p>}
-        <button className="bg-pink-600 text-white px-4 py-2 rounded w-full">Send reset link</button>
+        <button className="btn-accent w-full">Send reset link</button>
       </form>
     </div>
   );

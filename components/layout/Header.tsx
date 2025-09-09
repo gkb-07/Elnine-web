@@ -33,6 +33,7 @@ export default async function Header() {
           
           <Link href="/#library">Library</Link>
           <Link href="/about">About</Link>
+          
         </nav>
 
         <div className="ml-auto flex items-center gap-3">

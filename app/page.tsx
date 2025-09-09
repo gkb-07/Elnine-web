@@ -30,9 +30,13 @@ export default async function HomePage() {
   return (
     <div className="space-y-10">
       {/* Hero */}
-      <section className="rounded-2xl bg-gradient-to-r from-pink-500 to-purple-600 text-white p-10">
+      <section className="rounded-2xl p-10 surface shadow-soft border bg-gradient-to-br from-[var(--bg)] to-transparent">
         <h1 className="text-4xl md:text-5xl font-extrabold">Welcome to Elnine</h1>
-        <p className="mt-2 opacity-90">Discover and listen to premium audio stories</p>
+        <p className="mt-2 muted">Discover and listen to premium audio stories</p>
+        <div className="mt-6 flex gap-3">
+          <Link href="/playlists" className="btn-accent">Explore Playlists</Link>
+          <Link href="/library" className="inline-flex items-center justify-center rounded-md px-3 py-2 text-sm font-medium border">Your Library</Link>
+        </div>
       </section>
 
       {/* Personalized section if logged in */}
@@ -40,8 +44,8 @@ export default async function HomePage() {
         <section className="space-y-4">
           <h2 className="text-2xl font-bold">Your Library</h2>
           {playlists.length === 0 ? (
-            <p className="text-gray-600">
-              You don’t have any playlists yet. <Link className="text-pink-600 underline" href="/library">Go to Library</Link>
+            <p className="muted">
+              You don’t have any playlists yet. <Link className="text-[var(--accent)] underline" href="/library">Go to Library</Link>
             </p>
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -49,7 +53,7 @@ export default async function HomePage() {
                 <Link
                   key={pl.id}
                   href={`/library/playlists/${pl.id}`}
-                  className="rounded-xl border bg-white p-4 shadow-sm hover:shadow"
+                  className="rounded-xl border surface p-4 shadow-sm hover:shadow"
                 >
                   <div className="h-32 w-full rounded-lg bg-gray-100 overflow-hidden mb-3">
                     {/* optional cover */}
@@ -59,7 +63,7 @@ export default async function HomePage() {
                     ) : null}
                   </div>
                   <div className="font-semibold">{pl.title}</div>
-                  <div className="text-xs text-gray-500">Updated {new Date(pl.updated_at).toLocaleDateString()}</div>
+                  <div className="text-xs muted">Updated {new Date(pl.updated_at).toLocaleDateString()}</div>
                 </Link>
               ))}
             </div>
@@ -75,11 +79,11 @@ export default async function HomePage() {
             <Link
               key={t.id}
               href={`/track/${t.id}`}
-              className="rounded-xl border bg-white p-4 shadow-sm hover:shadow"
+              className="rounded-xl border surface p-4 shadow-sm hover:shadow"
             >
               <div className="font-semibold">{t.title}</div>
-              <div className="text-sm text-gray-600">{t.artist ?? "Unknown"}</div>
-              <div className="text-xs text-gray-500">{t.plays} plays</div>
+              <div className="text-sm muted">{t.artist ?? "Unknown"}</div>
+              <div className="text-xs muted">{t.plays} plays</div>
             </Link>
           ))}
         </div>

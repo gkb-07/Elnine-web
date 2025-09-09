@@ -1,3 +1,45 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Theme tokens */
+:root {
+  --bg: #ffffff;
+  --surface: #ffffff;
+  --muted: #6b7280; /* gray-500 */
+  --text: #0f172a; /* slate-900 */
+  --accent: #be29ec; /* brand-200 */
+  --accent-contrast: #ffffff;
+}
+
+.dark {
+  --bg: #212531; /* d1 */
+  --surface: #322f42; /* d2 */
+  --muted: #c5c3c4; /* d5 */
+  --text: #f3f4f6; /* near white */
+  --accent: #b7a2c9; /* d4 */
+  --accent-contrast: #1f2937;
+}
+
+@layer base {
+  html, body {
+    @apply h-full; 
+    background: var(--bg);
+    color: var(--text);
+  }
+}
+
+@layer components {
+  .surface {
+    background: var(--surface);
+  }
+  .muted {
+    color: var(--muted);
+  }
+  .btn-accent {
+    @apply inline-flex items-center justify-center rounded-md px-3 py-2 text-sm font-medium shadow; 
+    background: var(--accent);
+    color: var(--accent-contrast);
+  }
+  .btn-accent:hover { opacity: 0.95; }
+}

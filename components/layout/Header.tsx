@@ -18,13 +18,14 @@ export default async function Header() {
         <Link href="/" className="text-2xl font-extrabold text-[var(--accent)]">elnine</Link>
 
         <div className="flex-1 hidden md:flex">
-          <div className="w-full max-w-xl relative">
+          <form action="/search" className="w-full max-w-xl relative">
             <input
               type="search"
+              name="q"
               placeholder="Search songs, artists, albums"
               className="w-full rounded-md border bg-transparent px-3 py-2 text-sm"
             />
-          </div>
+          </form>
         </div>
 
         <nav className="hidden sm:flex items-center gap-6 text-sm ml-auto">

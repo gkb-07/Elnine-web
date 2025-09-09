@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 
-export default async function SearchPage({ searchParams }: { searchParams: { q?: string } }) {
+export default async function SearchPage({ searchParams }: { searchParams: any }) {
   const q = (searchParams.q ?? "").trim();
   const supabase = await createSupabaseServerClient();
 
@@ -60,5 +60,3 @@ export default async function SearchPage({ searchParams }: { searchParams: { q?:
     </div>
   );
 }
-
-

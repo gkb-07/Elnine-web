@@ -5,20 +5,20 @@
 /* Theme tokens */
 :root {
   --bg: #ffffff;
-  --surface: #ffffff;
+  --surface: #f9f9f9;
   --muted: #6b7280; /* gray-500 */
   --text: #0f172a; /* slate-900 */
-  --accent: #be29ec; /* brand-200 */
+  --accent: #d896ff; /* purple highlight */
   --accent-contrast: #ffffff;
 }
 
 .dark {
-  --bg: #212531; /* d1 */
-  --surface: #322f42; /* d2 */
-  --muted: #c5c3c4; /* d5 */
-  --text: #f3f4f6; /* near white */
-  --accent: #b7a2c9; /* d4 */
-  --accent-contrast: #1f2937;
+  --bg: #1a1a1a;
+  --surface: #2a2a2a;
+  --muted: #a0a0a0;
+  --text: #f3f4f6;
+  --accent: #d896ff;
+  --accent-contrast: #000000;
 }
 
 @layer base {
@@ -42,4 +42,7 @@
     color: var(--accent-contrast);
   }
   .btn-accent:hover { opacity: 0.95; }
+  .card {
+    @apply transition duration-300 ease-in-out rounded-xl border surface p-4 shadow-sm hover:shadow-lg hover:scale-105 hover:border-[var(--accent)];
+  }
 }

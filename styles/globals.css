@@ -2,47 +2,319 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Theme tokens */
+/* Enhanced Theme tokens with vibrant colors */
 :root {
-  --bg: #ffffff;
-  --surface: #f9f9f9;
-  --muted: #6b7280; /* gray-500 */
-  --text: #0f172a; /* slate-900 */
-  --accent: #d896ff; /* purple highlight */
+  --bg: #fafafa;
+  --surface: #ffffff;
+  --surface-elevated: #ffffff;
+  --muted: #64748b;
+  --text: #0f172a;
+  --text-secondary: #475569;
+  --accent: #8b5cf6;
+  --accent-hover: #7c3aed;
   --accent-contrast: #ffffff;
+  --secondary: #06b6d4;
+  --secondary-hover: #0891b2;
+  --success: #10b981;
+  --warning: #f59e0b;
+  --error: #ef4444;
+  --border: #e2e8f0;
+  --border-hover: #cbd5e1;
+  --shadow: rgba(0, 0, 0, 0.1);
+  --shadow-lg: rgba(0, 0, 0, 0.15);
+  --gradient-primary: linear-gradient(135deg, #8b5cf6 0%, #06b6d4 100%);
+  --gradient-secondary: linear-gradient(135deg, #f59e0b 0%, #ef4444 100%);
+  --gradient-hero: linear-gradient(135deg, rgba(139, 92, 246, 0.9) 0%, rgba(6, 182, 212, 0.9) 100%);
 }
 
 .dark {
-  --bg: #1a1a1a;
-  --surface: #2a2a2a;
-  --muted: #a0a0a0;
-  --text: #f3f4f6;
-  --accent: #d896ff;
-  --accent-contrast: #000000;
+  --bg: #0f0f23;
+  --surface: #1a1a2e;
+  --surface-elevated: #16213e;
+  --muted: #94a3b8;
+  --text: #f8fafc;
+  --text-secondary: #cbd5e1;
+  --accent: #a855f7;
+  --accent-hover: #9333ea;
+  --accent-contrast: #ffffff;
+  --secondary: #22d3ee;
+  --secondary-hover: #06b6d4;
+  --success: #34d399;
+  --warning: #fbbf24;
+  --error: #f87171;
+  --border: #334155;
+  --border-hover: #475569;
+  --shadow: rgba(0, 0, 0, 0.3);
+  --shadow-lg: rgba(0, 0, 0, 0.5);
+  --gradient-primary: linear-gradient(135deg, #a855f7 0%, #22d3ee 100%);
+  --gradient-secondary: linear-gradient(135deg, #fbbf24 0%, #f87171 100%);
+  --gradient-hero: linear-gradient(135deg, rgba(168, 85, 247, 0.9) 0%, rgba(34, 211, 238, 0.9) 100%);
 }
 
 @layer base {
   html, body {
-    @apply h-full; 
+    @apply h-full antialiased; 
     background: var(--bg);
     color: var(--text);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    scroll-behavior: smooth;
   }
+
+  * {
+    @apply border-border;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bold tracking-tight;
+  }
+
+  h1 { @apply text-4xl md:text-5xl lg:text-6xl; }
+  h2 { @apply text-2xl md:text-3xl lg:text-4xl; }
+  h3 { @apply text-xl md:text-2xl; }
 }
 
 @layer components {
   .surface {
     background: var(--surface);
+    border: 1px solid var(--border);
   }
+
+  .surface-elevated {
+    background: var(--surface-elevated);
+    border: 1px solid var(--border);
+  }
+
   .muted {
     color: var(--muted);
   }
-  .btn-accent {
-    @apply inline-flex items-center justify-center rounded-md px-3 py-2 text-sm font-medium shadow; 
+
+  .text-secondary {
+    color: var(--text-secondary);
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl;
+    background: var(--gradient-primary);
+    color: var(--accent-contrast);
+  }
+
+  .btn-primary:hover {
+    filter: brightness(1.1);
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold border-2 transition-all duration-300 hover:scale-105;
+    border-color: var(--accent);
+    color: var(--accent);
+    background: transparent;
+  }
+
+  .btn-secondary:hover {
     background: var(--accent);
     color: var(--accent-contrast);
   }
-  .btn-accent:hover { opacity: 0.95; }
-  .card {
-    @apply transition duration-300 ease-in-out rounded-xl border surface p-4 shadow-sm hover:shadow-lg hover:scale-105 hover:border-[var(--accent)];
+
+  .btn-accent {
+    @apply inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold shadow-lg transition-all duration-300 hover:scale-105;
+    background: var(--accent);
+    color: var(--accent-contrast);
   }
+
+  .btn-accent:hover {
+    background: var(--accent-hover);
+  }
+
+  .card {
+    @apply transition-all duration-500 ease-out rounded-2xl border backdrop-blur-sm hover:scale-105 hover:shadow-2xl;
+    background: var(--surface);
+    border-color: var(--border);
+    box-shadow: 0 4px 20px var(--shadow);
+  }
+
+  .card:hover {
+    border-color: var(--accent);
+    box-shadow: 0 20px 40px var(--shadow-lg);
+    transform: translateY(-8px) scale(1.02);
+  }
+
+  .card-large {
+    @apply card p-6;
+    min-height: 280px;
+  }
+
+  .gradient-text {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .glass-effect {
+    backdrop-filter: blur(20px);
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .dark .glass-effect {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .music-player-pill {
+    @apply fixed bottom-6 left-1/2 transform -translate-x-1/2 z-50 rounded-full shadow-2xl backdrop-blur-xl border;
+    background: var(--surface-elevated);
+    border-color: var(--border);
+    box-shadow: 0 10px 40px var(--shadow-lg);
+    width: min(90vw, 800px);
+    height: 80px;
+  }
+
+  .category-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+
+  .hero-gradient {
+    background: var(--gradient-hero);
+  }
+
+  .floating-animation {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+  }
+
+  .pulse-glow {
+    animation: pulse-glow 2s ease-in-out infinite alternate;
+  }
+
+  @keyframes pulse-glow {
+    from {
+      box-shadow: 0 0 20px var(--accent);
+    }
+    to {
+      box-shadow: 0 0 40px var(--accent), 0 0 60px var(--accent);
+    }
+  }
+
+  .scroll-fade {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s ease-out;
+  }
+
+  .scroll-fade.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--surface);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--accent);
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-hover);
+  }
+}
+
+@layer utilities {
+  .container {
+    @apply mx-auto px-4 sm:px-6 lg:px-8;
+    max-width: 1400px;
+  }
+
+  .section-padding {
+    @apply py-16 md:py-24;
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+/* Music player specific styles */
+.player-controls {
+  @apply flex items-center justify-center space-x-4;
+}
+
+.player-button {
+  @apply w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110;
+  background: var(--accent);
+  color: var(--accent-contrast);
+}
+
+.player-button:hover {
+  background: var(--accent-hover);
+  box-shadow: 0 0 20px var(--accent);
+}
+
+.player-button.play-pause {
+  @apply w-16 h-16;
+}
+
+.progress-bar {
+  @apply w-full h-2 rounded-full overflow-hidden cursor-pointer;
+  background: var(--border);
+}
+
+.progress-fill {
+  @apply h-full rounded-full transition-all duration-300;
+  background: var(--gradient-primary);
+}
+
+.volume-slider {
+  @apply w-24 h-2 rounded-full appearance-none cursor-pointer;
+  background: var(--border);
+}
+
+.volume-slider::-webkit-slider-thumb {
+  @apply w-4 h-4 rounded-full appearance-none cursor-pointer;
+  background: var(--accent);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .music-player-pill {
+    @apply bottom-4;
+    height: 70px;
+    width: 95vw;
+  }
+
+  .category-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .card-large {
+    min-height: 240px;
+  }
+}
+
+/* Loading animations */
+.skeleton {
+  @apply animate-pulse bg-gray-200 dark:bg-gray-700 rounded;
+}
+
+.shimmer {
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
 }

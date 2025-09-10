@@ -212,6 +212,12 @@
     transform: translateY(0);
   }
 
+  /* Temporary fix: Make scroll-fade elements visible by default */
+  .scroll-fade {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+  }
+
   /* Custom scrollbar */
   ::-webkit-scrollbar {
     width: 8px;

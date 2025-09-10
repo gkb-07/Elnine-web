@@ -22,7 +22,11 @@ export default function TrackCard({ track }: TrackCardProps) {
   const handlePlay = (e: React.MouseEvent) => {
     e.preventDefault();
     if (track.preview_url) {
-      playTrack(track);
+      playTrack({
+        ...track,
+        cover_url: track.cover_url ?? null,
+        preview_url: track.preview_url ?? null,
+      });
     } else {
       console.log("No preview available for this track.");
     }

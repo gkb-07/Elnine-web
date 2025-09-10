@@ -42,13 +42,13 @@ export default function HeaderClientMenu({ initialEmail }: { initialEmail: strin
       <div className="flex items-center gap-3">
         <Link
           href="/signin"
-          className="text-sm border px-3 py-1.5 rounded-md hover:bg-gray-50"
+          className="btn-secondary text-sm"
         >
           Log In
         </Link>
         <Link
           href="/signup"
-          className="text-sm bg-pink-600 text-white px-3 py-1.5 rounded-md hover:bg-pink-700"
+          className="btn-primary text-sm"
         >
           Sign Up
         </Link>
@@ -61,28 +61,30 @@ export default function HeaderClientMenu({ initialEmail }: { initialEmail: strin
     <div className="relative" ref={ref}>
       <button
         onClick={() => setOpen((v) => !v)}
-        className="h-9 w-9 rounded-full bg-pink-600 text-white grid place-items-center font-semibold"
+        className="h-10 w-10 rounded-full bg-gradient-to-r from-[var(--accent-primary)] to-[var(--accent-secondary)] text-white grid place-items-center font-bold text-lg shadow-lg hover:shadow-xl transition-all hover:scale-105"
         title={email}
       >
         {initialFrom(email)}
       </button>
 
       {open && (
-        <div className="absolute right-0 mt-2 w-40 rounded-lg border bg-white shadow">
-          <div className="px-3 py-2 text-xs text-gray-500 truncate">
+        <div className="absolute right-0 mt-2 w-48 rounded-xl border border-[var(--border-color)] bg-[var(--bg-secondary)] shadow-xl backdrop-blur-sm">
+          <div className="px-4 py-3 text-xs text-[var(--text-tertiary)] truncate border-b border-[var(--border-color)]">
             {email}
           </div>
           <Link
             href="/library"
-            className="block px-3 py-2 text-sm hover:bg-gray-50"
+            className="block px-4 py-3 text-sm hover:bg-[var(--bg-tertiary)] transition-colors"
             onClick={() => setOpen(false)}
           >
+            📚 
             Library
           </Link>
           <button
             onClick={signOut}
-            className="w-full text-left px-3 py-2 text-sm hover:bg-gray-50"
+            className="w-full text-left px-4 py-3 text-sm hover:bg-[var(--bg-tertiary)] transition-colors text-red-500"
           >
+            🚪 
             Log out
           </button>
         </div>

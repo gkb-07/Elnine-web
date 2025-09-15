@@ -2,7 +2,7 @@ import Link from "next/link";
 import { unstable_noStore as noStore } from "next/cache";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import HeaderClientMenu from "./HeaderClientMenu";
-import ThemeToggle from "@/components/ui/ThemeToggle";
+import SearchBar from "./SearchBar";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
@@ -13,33 +13,41 @@ export default async function Header() {
   const { data: { user } } = await supabase.auth.getUser();
 
   return (
-    <header className="glass sticky top-0 z-50 border-b border-[var(--border-color)]">
-      <div className="container mx-auto px-4 py-3 flex items-center justify-between">
-        <Link href="/" className="text-3xl font-black gradient-text hover:scale-105 transition-transform">
-          elnine
-        </Link>
+    <header className="bg-white border-b border-gray-100 px-8 py-6">
+      <div className="flex items-center justify-between max-w-7xl mx-auto">
+        {/* Left side - Logo and Search */}
+        <div className="flex items-center gap-8">
+          {/* Logo */}
+          <Link href="/" className="logo-link flex items-center gap-2 focus:outline-none border-none no-underline">
+            <div className="text-4xl font-light text-purple-400 italic border-none">elnine</div>
+          </Link>
 
-        <nav className="hidden sm:flex items-center gap-8 text-sm font-medium">
-          <Link href="/categories" className="hover:text-[var(--accent-primary)] transition-colors relative group">
-            Categories
-            <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[var(--accent-primary)] transition-all group-hover:w-full"></span>
-          </Link>
-          <Link href="/creators" className="hover:text-[var(--accent-primary)] transition-colors relative group">
+          {/* Search Component */}
+          <SearchBar />
+        </div>
+
+        {/* Center - Navigation */}
+        <nav className="flex items-center gap-12">
+          <Link href="/creators" className="text-gray-700 font-medium hover:text-gray-900 transition-colors">
             Creators
-            <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[var(--accent-primary)] transition-all group-hover:w-full"></span>
           </Link>
-          <Link href="/library" className="hover:text-[var(--accent-primary)] transition-colors relative group">
-            Library
-            <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[var(--accent-primary)] transition-all group-hover:w-full"></span>
+          <Link href="/categories" className="text-gray-700 font-medium hover:text-gray-900 transition-colors">
+            Category
           </Link>
-          <Link href="/about" className="hover:text-[var(--accent-primary)] transition-colors relative group">
+          <Link href="/about" className="text-gray-700 font-medium hover:text-gray-900 transition-colors">
             About
-            <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[var(--accent-primary)] transition-all group-hover:w-full"></span>
+          </Link>
+          <Link href="/library" className="text-gray-700 font-medium hover:text-gray-900 transition-colors">
+            Library
           </Link>
         </nav>
 
-        <div className="flex items-center gap-4">
-          <ThemeToggle />
+        {/* Right side - Tagline and Buttons */}
+        <div className="flex items-center gap-6">
+          <div className="text-gray-600 font-medium">
+            the app for audio <span className="text-purple-400">desires</span>
+          </div>
+          
           <HeaderClientMenu initialEmail={user?.email ?? null} />
         </div>
       </div>

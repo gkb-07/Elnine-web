@@ -5,6 +5,7 @@ import SupabaseProvider from "@/components/providers/SupabaseProvider";
 import AudioPlayer from "@/components/player/AudioPlayer";
 import ThemeProvider from "@/components/providers/ThemeProvider";
 import { AudioPlayerProvider } from "@/contexts/AudioPlayerContext";
+import ScrollAnimations from "@/components/ui/ScrollAnimations";
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -15,8 +16,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <AudioPlayerProvider>
               <div className="flex min-h-screen flex-col">
                 <Header />
-                <main className="container flex-1 py-6">{children}</main>
+                <main className="flex-1">{children}</main>
                 <AudioPlayer />
+                <ScrollAnimations />
               </div>
             </AudioPlayerProvider>
           </ThemeProvider>

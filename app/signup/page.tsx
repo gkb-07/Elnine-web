@@ -39,10 +39,10 @@ export default function SignUpPage() {
         {/* Header */}
         <div className="text-center">
           <Link href="/" className="inline-block">
-            <div className="text-4xl font-light text-purple-400 italic mb-2">elnine</div>
+            <div className="text-4xl font-light text-purple-400 italic mb-2">Elninee</div>
           </Link>
-          <h2 className="text-3xl font-bold text-gray-900 mb-2">Join elnine</h2>
-          <p className="text-gray-600">Discover your audio desires</p>
+          <h2 className="text-3xl font-bold text-gray-900 mb-2">Create your account</h2>
+          <p className="text-gray-600">Sign up to get started</p>
         </div>
 
         {/* Form Container */}
@@ -96,7 +96,7 @@ export default function SignUpPage() {
                 name="password"
                 type="password"
                 required
-                placeholder="Create a password (min 6 characters)"
+                placeholder="Enter your password (min 6 chars)"
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none transition-all duration-200 hover:border-gray-400"
               />
             </div>
@@ -127,7 +127,7 @@ export default function SignUpPage() {
                   Creating account...
                 </div>
               ) : (
-                "Create account"
+                "Sign up"
               )}
             </button>
           </form>
@@ -145,10 +145,7 @@ export default function SignUpPage() {
 
         {/* Footer */}
         <div className="text-center text-sm text-gray-500">
-          By signing up, you agree to our{' '}
-          <Link href="/terms" className="text-purple-600 hover:text-purple-700">Terms of Service</Link>
-          {' '}and{' '}
-          <Link href="/privacy" className="text-purple-600 hover:text-purple-700">Privacy Policy</Link>
+          Protected by elnine security
         </div>
       </div>
     </div>

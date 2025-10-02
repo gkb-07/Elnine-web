@@ -6,6 +6,7 @@ import AudioPlayer from "@/components/player/AudioPlayer";
 import ThemeProvider from "@/components/providers/ThemeProvider";
 import { AudioPlayerProvider } from "@/contexts/AudioPlayerContext";
 import ScrollAnimations from "@/components/ui/ScrollAnimations";
+import ChapterNavigationHandler from "@/components/player/ChapterNavigationHandler";
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -18,6 +19,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 <Header />
                 <main className="flex-1">{children}</main>
                 <AudioPlayer />
+                <ChapterNavigationHandler />
                 <ScrollAnimations />
               </div>
             </AudioPlayerProvider>

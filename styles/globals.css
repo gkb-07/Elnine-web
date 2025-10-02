@@ -1,7 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap');
 
 * {
   box-sizing: border-box;
@@ -10,11 +10,15 @@
 }
 
 body {
-  font-family: 'Inter', sans-serif;
+  font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   background-color: #ffffff;
   color: #1f2937;
   line-height: 1.6;
   padding-bottom: 100px; /* Space for fixed player */
+}
+
+h1, h2, h3, h4, h5, h6, .heading {
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
 /* Smooth scrolling */
@@ -48,30 +52,28 @@ html {
 
 /* Focus styles */
 button:focus,
-a:focus {
-  outline: 2px solid #a855f7;
-  outline-offset: 2px;
-}
-
-/* Remove outline from logo link */
-a.logo-link:focus {
+a:focus,
+button:focus-visible,
+a:focus-visible {
   outline: none !important;
 }
 
-/* Remove borders and outlines from search button */
-button:focus {
-  outline: 2px solid #a855f7;
-  outline-offset: 2px;
+/* Remove outline from all interactive elements */
+button,
+a,
+input,
+textarea,
+select {
+  outline: none !important;
 }
 
-button.search-button:focus {
+button:focus,
+a:focus,
+input:focus,
+textarea:focus,
+select:focus {
   outline: none !important;
-  border: none !important;
-}
-
-/* Remove focus outlines from navigation links */
-nav a:focus {
-  outline: none !important;
+  box-shadow: none !important;
 }
 
 /* Transitions */
@@ -196,7 +198,7 @@ img {
 
 /* Text selection */
 ::selection {
-  background-color: #a855f7;
+  background-color: #3b82f6;
   color: white;
 }
 
@@ -219,4 +221,26 @@ img {
   .fixed {
     position: static;
   }
+}
+
+/* Custom range slider styles */
+input[type="range"].slider::-webkit-slider-thumb {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: white;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+input[type="range"].slider::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: white;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
 }

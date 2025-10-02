@@ -33,7 +33,7 @@ export default function SignInPage() {
         {/* Header */}
         <div className="text-center">
           <Link href="/" className="inline-block">
-            <div className="text-4xl font-light text-purple-400 italic mb-2">elnine</div>
+            <div className="text-4xl font-light text-purple-400 italic mb-2">Elninee</div>
           </Link>
           <h2 className="text-3xl font-bold text-gray-900 mb-2">Welcome back</h2>
           <p className="text-gray-600">Sign in to your account</p>

@@ -1,88 +1,89 @@
-"use client";
-
 import Link from "next/link";
-import { createSupabaseBrowserClient } from "@/lib/supabase/browser";
-import BookClickHandler from "@/components/ui/BookClickHandler";
-import { useEffect, useState } from "react";
+import { supabase } from '@/lib/supabase';
+import HomeSections from '@/components/HomeSections';
 
-// BookCover component for creating placeholder book covers
-function BookCover({ type, title, author }: { type: 'moby-dick' | 'authority'; title: string; author: string }) {
-  if (type === 'moby-dick') {
-    return (
-      <img 
-        src="https://m.media-amazon.com/images/I/616R20nvohL._AC_UF1000,1000_QL80_.jpg" 
-        alt="Moby Dick by Herman Melville"
-        className="w-full h-full object-cover"
-      />
-    );
+// Fetch books from Supabase
+async function getBooks() {
+  const { data: books, error } = await supabase
+    .from('books')
+    .select('*')
+    .eq('is_published', true)
+    .order('created_at', { ascending: false });
+
+  if (error) {
+    console.error('Error fetching books:', error);
+    return [];
   }
-  
-  if (type === 'authority') {
-    return (
-      <div className="w-full h-full bg-black text-white flex flex-col items-center justify-between p-4 relative">
-        {/* Series info at top */}
-        <div className="text-center text-xs opacity-75">
-          THE SOUTHERN REACH TRILOGY - BOOK 2
-        </div>
-        
-        {/* Central lighthouse with red beam */}
-        <div className="flex-1 flex items-center justify-center relative">
-          {/* Lighthouse */}
-          <div className="w-2 h-16 bg-white relative">
-            <div className="w-4 h-2 bg-white absolute -top-1 -left-1"></div>
-            <div className="w-1 h-2 bg-yellow-400 absolute -top-1 left-0.5"></div>
-          </div>
-          
-          {/* Red beam */}
-          <div className="absolute left-1/2 top-1/2 transform -translate-y-1/2 translate-x-1">
-            <div className="w-8 h-12 bg-gradient-to-r from-red-600 to-red-400 transform skew-x-12 opacity-80"></div>
-          </div>
-        </div>
-        
-        {/* Title at bottom */}
-        <div className="text-center text-lg font-bold tracking-wider">
-          AUTHORITY
-        </div>
-      </div>
-    );
-  }
-  
-  return null;
+
+  return books || [];
 }
 
-// PlaylistCover component with new image
-function PlaylistCover() {
-  return (
-    <img 
-      src="https://tse3.mm.bing.net/th/id/OIP._dDAy28ywYCb8ZjNIBAz6gHaKb?pid=ImgDet&w=184&h=258&c=7&dpr=1.3&o=7&rm=3" 
-      alt="Playlist Cover"
-      className="w-full h-full object-cover"
-    />
-  );
+// Fetch books by category (with fallback if category column doesn't exist)
+async function getBooksByCategory(category: string, limit = 12) {
+  const { data: books, error } = await supabase
+    .from('books')
+    .select('*')
+    .eq('is_published', true)
+    .eq('category', category)
+    .limit(limit);
+
+  if (error) {
+    console.error('Error fetching books by category:', error);
+    // Fallback: if category column doesn't exist, just return recent books
+    const { data: fallbackBooks } = await supabase
+      .from('books')
+      .select('*')
+      .eq('is_published', true)
+      .limit(limit);
+    return fallbackBooks || [];
+  }
+
+  return books || [];
 }
 
-export default function HomePage() {
-  const supabase = createSupabaseBrowserClient();
-  const [user, setUser] = useState(null);
+// Fetch trending books (most played - for now just recent)
+async function getTrendingBooks(limit = 12) {
+  const { data: books, error } = await supabase
+    .from('books')
+    .select('*')
+    .eq('is_published', true)
+    .order('created_at', { ascending: false })
+    .limit(limit);
 
-  useEffect(() => {
-    const getUser = async () => {
-      const { data: { user } } = await supabase.auth.getUser();
-      setUser(user);
-    };
-    getUser();
-  }, []);
+  if (error) {
+    console.error('Error fetching trending books:', error);
+    return [];
+  }
 
-  // Sample data matching the reference design
-  const trendingBooks = [
-    { id: 1, title: "Moby Dick", author: "Herman Meville", type: "moby-dick" as const },
-    { id: 2, title: "Authority", author: "Jeff Vandermer", type: "authority" as const },
-    { id: 3, title: "Moby Dick", author: "Herman Meville", type: "moby-dick" as const },
-    { id: 4, title: "Authority", author: "Jeff Vandermer", type: "authority" as const },
-    { id: 5, title: "Moby Dick", author: "Herman Meville", type: "moby-dick" as const },
-    { id: 6, title: "Authority", author: "Jeff Vandermer", type: "authority" as const },
-    { id: 7, title: "Moby Dick", author: "Herman Meville", type: "moby-dick" as const },
-  ];
+  return books || [];
+}
+
+// Fetch newly released books
+async function getNewlyReleasedBooks(limit = 12) {
+  const { data: books, error } = await supabase
+    .from('books')
+    .select('*')
+    .eq('is_published', true)
+    .order('created_at', { ascending: false })
+    .limit(limit);
+
+  if (error) {
+    console.error('Error fetching new books:', error);
+    return [];
+  }
+
+  return books || [];
+}
+
+export default async function HomePage() {
+  // Fetch different sets of books for each section
+  const trendingBooks = await getTrendingBooks(12);
+  const fictionBooks = await getBooksByCategory('fiction', 12);
+  const romanceBooks = await getBooksByCategory('romance', 12);
+  const mysteryBooks = await getBooksByCategory('mystery', 12);
+  const biographyBooks = await getBooksByCategory('biography', 12);
+  const newlyReleasedBooks = await getNewlyReleasedBooks(12);
+  const allBooks = await getBooks();
 
   return (
     <div className="bg-gray-50 min-h-screen">
@@ -104,104 +105,41 @@ export default function HomePage() {
               From trending hits to hidden gems.
             </p>
             <div className="flex gap-6 justify-center">
-              <button className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-3 rounded-full font-semibold text-lg transition-colors flex items-center gap-2">
-                🎵 Start Listening
-              </button>
-              <button className="border-2 border-white/50 hover:border-white text-white px-8 py-3 rounded-full font-semibold text-lg transition-colors flex items-center gap-2">
+              <Link href="/categories" className="border-2 border-white/50 hover:border-white text-white px-8 py-3 rounded-full font-semibold text-lg transition-colors flex items-center gap-2">
                 🎧 Explore Genres
-              </button>
+              </Link>
             </div>
           </div>
         </div>
       </section>
 
       {/* Main Content */}
-      <div className="max-w-7xl mx-auto px-8 py-12">
+      <div className="py-12">
         
-        {/* Trending Now Section */}
-        <section className="mb-16">
-          <div className="flex justify-between items-center mb-8">
-            <h2 className="text-4xl font-bold text-gray-800">Trending Now</h2>
-            <div className="text-gray-400 font-medium">Books</div>
-          </div>
-          
-          <div className="flex items-center gap-4">
-            <div className="flex-1 overflow-hidden">
-              <div id="trending-books" className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide scroll-smooth">
-                {trendingBooks.map((book) => (
-                  <div key={book.id} className="flex-shrink-0 w-48">
-                    <BookClickHandler book={book}>
-                      <div className="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow">
-                        <div className="aspect-[3/4] relative">
-                          <BookCover type={book.type} title={book.title} author={book.author} />
-                        </div>
-                        <div className="p-4">
-                          <h3 className="font-bold text-gray-800">{book.title}</h3>
-                          <p className="text-gray-600 text-sm">{book.author}</p>
-                        </div>
-                      </div>
-                    </BookClickHandler>
-                  </div>
-                ))}
-              </div>
-            </div>
-            
-            {/* Navigation Arrow - Outside the cards */}
-            <button 
-              onClick={() => {
-                const container = document.getElementById('trending-books');
-                if (container) {
-                  container.scrollBy({ left: 200, behavior: 'smooth' });
-                }
-              }}
-              className="flex-shrink-0 w-12 h-12 bg-white rounded-full shadow-lg flex items-center justify-center text-gray-400 hover:text-gray-600 transition-colors"
+        {/* Show message if no books */}
+        {allBooks.length === 0 && (
+          <div className="text-center py-16">
+            <div className="text-6xl mb-4">📚</div>
+            <h2 className="text-3xl font-bold text-gray-800 mb-4">No Books Yet</h2>
+            <p className="text-gray-600 mb-6">Add books to your Supabase database to get started!</p>
+            <Link 
+              href="/admin/upload-book"
+              className="inline-block bg-purple-600 text-white px-8 py-3 rounded-full font-semibold hover:bg-purple-700 transition-colors"
             >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
-            </button>
+              Upload First Book
+            </Link>
           </div>
-        </section>
+        )}
 
-        {/* Popular Playlists Section */}
-        <section className="mb-16">
-          <h2 className="text-4xl font-bold text-gray-800 mb-8">Popular Playlists</h2>
-          
-          <div className="flex items-center gap-4">
-            <div className="flex-1 overflow-hidden">
-              <div id="popular-playlists" className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide scroll-smooth">
-                {[...Array(12)].map((_, index) => (
-                  <div key={index} className="flex-shrink-0 w-48">
-                    <div className="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow">
-                      <div className="aspect-square relative">
-                        <PlaylistCover />
-                      </div>
-                      <div className="p-4">
-                        <h3 className="font-bold text-gray-800">1000 Black Umbrellas</h3>
-                        <p className="text-gray-600 text-sm">Playlist • {20 + index} songs</p>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-            
-            {/* Navigation Arrow - Outside the cards */}
-            <button 
-              onClick={() => {
-                const container = document.getElementById('popular-playlists');
-                if (container) {
-                  container.scrollBy({ left: 200, behavior: 'smooth' });
-                }
-              }}
-              className="flex-shrink-0 w-12 h-12 bg-white rounded-full shadow-lg flex items-center justify-center text-gray-400 hover:text-gray-600 transition-colors"
-            >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
-            </button>
-          </div>
-        </section>
+        <HomeSections 
+          allBooks={allBooks}
+          trendingBooks={trendingBooks}
+          fictionBooks={fictionBooks}
+          romanceBooks={romanceBooks}
+          mysteryBooks={mysteryBooks}
+          biographyBooks={biographyBooks}
+          newlyReleasedBooks={newlyReleasedBooks}
+        />
       </div>
     </div>
   );

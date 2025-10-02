@@ -1,10 +1,10 @@
 'use client';
 
-import { useAudioPlayer } from '@/contexts/AudioPlayerContext';
+import { useRouter } from 'next/navigation';
 
 interface BookClickHandlerProps {
   book: {
-    id: number;
+    id: number | string; // Support both number and UUID string
     title: string;
     author: string;
     type: string;
@@ -13,17 +13,11 @@ interface BookClickHandlerProps {
 }
 
 export default function BookClickHandler({ book, children }: BookClickHandlerProps) {
-  const { playTrack } = useAudioPlayer();
+  const router = useRouter();
 
   const handleClick = () => {
-    // Create a sample track when book is clicked
-    playTrack({
-      id: book.id,
-      title: `${book.title} (audio preview)`,
-      artist: book.author,
-      cover_url: null,
-      preview_url: "/sample-1.mp3", // Use the existing sample audio
-    });
+    // Navigate to the book detail page with chapters
+    router.push(`/book/${book.id}`);
   };
 
   return (

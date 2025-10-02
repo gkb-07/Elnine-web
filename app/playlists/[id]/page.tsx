@@ -27,8 +27,9 @@ const samplePlaylists = {
   }
 };
 
-export default function PlaylistPage({ params }: { params: { id: string } }) {
-  const id = parseInt(params.id);
+export default async function PlaylistPage({ params }: { params: Promise<{ id: string }> }) {
+  const resolvedParams = await params;
+  const id = parseInt(resolvedParams.id);
   const playlist = samplePlaylists[id as keyof typeof samplePlaylists];
 
   if (!playlist) {

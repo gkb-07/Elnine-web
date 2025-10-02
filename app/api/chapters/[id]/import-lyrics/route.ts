@@ -2,14 +2,15 @@ import { NextRequest, NextResponse } from 'next/server';
 import { createSupabaseServerClient } from '@/lib/supabase/server';
 import { parseLrc } from '@/lib/lyrics';
 
-export async function POST(req: NextRequest, { params }: { params: { id: string } }) {
+export async function POST(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const supabase = await createSupabaseServerClient();
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) return NextResponse.json({ error: 'unauthorized' }, { status: 401 });
 
   // Expect: { lrcUrl?: string }
   const body = await req.json().catch(() => ({}));
-  const chapterId = params.id;
+  const resolvedParams = await params;
+  const chapterId = resolvedParams.id;
 
   // Fetch chapter to know audio_url
   const { data: chapter, error: chErr } = await supabase

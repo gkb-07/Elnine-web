@@ -45,8 +45,9 @@ const relatedTracks = [
   }
 ];
 
-export default function TrackPage({ params }: { params: { id: string } }) {
-  const id = parseInt(params.id);
+export default async function TrackPage({ params }: { params: Promise<{ id: string }> }) {
+  const resolvedParams = await params;
+  const id = parseInt(resolvedParams.id);
   const track = sampleTracks[id as keyof typeof sampleTracks];
 
   if (!track) {

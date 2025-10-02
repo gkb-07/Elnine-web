@@ -30,8 +30,9 @@ async function getBookWithChapters(bookId: string) {
   return { ...book, chapters: chapters || [] };
 }
 
-export default async function BookRealPage({ params }: { params: { id: string } }) {
-  const book = await getBookWithChapters(params.id);
+export default async function BookRealPage({ params }: { params: Promise<{ id: string }> }) {
+  const resolvedParams = await params;
+  const book = await getBookWithChapters(resolvedParams.id);
 
   if (!book) {
     return (

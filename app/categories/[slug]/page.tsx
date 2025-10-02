@@ -89,9 +89,9 @@ const categoryData = {
     ]
   }
 };
-
-export default function CategoryDetailPage({ params }: { params: { slug: string } }) {
-  const category = categoryData[params.slug as keyof typeof categoryData];
+export default async function CategoryDetailPage({ params }: { params: Promise<{ slug: string }> }) {
+  const resolvedParams = await params;
+  const category = categoryData[resolvedParams.slug as keyof typeof categoryData];
 
   if (!category) {
     notFound();
@@ -156,7 +156,7 @@ export default function CategoryDetailPage({ params }: { params: { slug: string 
       <section>
         <h2 className="text-3xl font-bold gradient-text mb-8">Explore More Genres</h2>
         <div className="flex gap-4 overflow-x-auto pb-4">
-          {Object.entries(categoryData).filter(([slug]) => slug !== params.slug).map(([slug, data]) => (
+          {Object.entries(categoryData).filter(([slug]) => slug !== resolvedParams.slug).map(([slug, data]) => (
             <Link 
               key={slug}
               href={`/categories/${slug}`}

@@ -76,14 +76,24 @@ async function getNewlyReleasedBooks(limit = 12) {
 }
 
 export default async function HomePage() {
-  // Fetch different sets of books for each section
-  const trendingBooks = await getTrendingBooks(12);
-  const fictionBooks = await getBooksByCategory('fiction', 12);
-  const romanceBooks = await getBooksByCategory('romance', 12);
-  const mysteryBooks = await getBooksByCategory('mystery', 12);
-  const biographyBooks = await getBooksByCategory('biography', 12);
-  const newlyReleasedBooks = await getNewlyReleasedBooks(12);
-  const allBooks = await getBooks();
+  // 🚀 OPTIMIZED: Fetch ALL data in parallel for maximum speed
+  const [
+    allBooks,
+    trendingBooks,
+    fictionBooks,
+    romanceBooks,
+    mysteryBooks,
+    biographyBooks,
+    newlyReleasedBooks
+  ] = await Promise.all([
+    getBooks(),
+    getTrendingBooks(12),
+    getBooksByCategory('fiction', 12),
+    getBooksByCategory('romance', 12),
+    getBooksByCategory('mystery', 12),
+    getBooksByCategory('biography', 12),
+    getNewlyReleasedBooks(12)
+  ]);
 
   return (
     <div className="bg-gray-50 min-h-screen">
@@ -105,7 +115,11 @@ export default async function HomePage() {
               From trending hits to hidden gems.
             </p>
             <div className="flex gap-6 justify-center">
-              <Link href="/categories" className="border-2 border-white/50 hover:border-white text-white px-8 py-3 rounded-full font-semibold text-lg transition-colors flex items-center gap-2">
+              <Link 
+                href="/categories" 
+                prefetch={true}
+                className="border-2 border-white/50 hover:border-white text-white px-8 py-3 rounded-full font-semibold text-lg transition-colors flex items-center gap-2"
+              >
                 🎧 Explore Genres
               </Link>
             </div>
@@ -113,24 +127,8 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* Main Content */}
+      {/* Main Content - Always show sections */}
       <div className="py-12">
-        
-        {/* Show message if no books */}
-        {allBooks.length === 0 && (
-          <div className="text-center py-16">
-            <div className="text-6xl mb-4">📚</div>
-            <h2 className="text-3xl font-bold text-gray-800 mb-4">No Books Yet</h2>
-            <p className="text-gray-600 mb-6">Add books to your Supabase database to get started!</p>
-            <Link 
-              href="/admin/upload-book"
-              className="inline-block bg-purple-600 text-white px-8 py-3 rounded-full font-semibold hover:bg-purple-700 transition-colors"
-            >
-              Upload First Book
-            </Link>
-          </div>
-        )}
-
         <HomeSections 
           allBooks={allBooks}
           trendingBooks={trendingBooks}

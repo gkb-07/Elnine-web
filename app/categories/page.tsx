@@ -1,4 +1,22 @@
+import Link from 'next/link';
+import { supabase } from '@/lib/supabase';
 import CategoryCard, { type Category } from "@/components/categories/CategoryCard";
+
+// 🚀 OPTIMIZED: Fetch categories from Supabase
+async function getCategories() {
+  const { data: categories, error } = await supabase
+    .from('categories')
+    .select('id, name, slug, icon, description')
+    .eq('is_active', true)
+    .order('sort_order', { ascending: true });
+
+  if (error) {
+    console.error('Error fetching categories:', error);
+    return [];
+  }
+
+  return categories || [];
+}
 
 export default async function CategoriesPage() {
   // Adult/Erotic Literature Categories
@@ -93,13 +111,14 @@ export default async function CategoriesPage() {
       <div className="max-w-4xl mx-auto">
         <div className="flex flex-wrap gap-3 justify-center">
           {categories.map((cat) => (
-            <a
+            <Link
               key={cat.id}
               href={`/categories/${cat.slug}`}
+              prefetch={true}
               className="px-6 py-3 bg-white border border-gray-200 rounded-full text-gray-700 hover:bg-purple-50 hover:border-purple-300 hover:text-purple-700 transition-all duration-200 shadow-sm hover:shadow-md font-medium"
             >
               {cat.title}
-            </a>
+            </Link>
           ))}
         </div>
       </div>

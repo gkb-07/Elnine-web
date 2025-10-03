@@ -2,33 +2,32 @@ import { supabase } from '@/lib/supabase';
 import Link from 'next/link';
 import ChapterList from './ChapterList';
 
-// Fetch book with chapters from Supabase
+// 🚀 OPTIMIZED: Fast parallel fetching with specific fields only
 async function getBookWithChapters(bookId: string) {
-  // Fetch book details
-  const { data: book, error: bookError } = await supabase
-    .from('books')
-    .select('*')
-    .eq('id', bookId)
-    .single();
+  // Run BOTH queries in parallel instead of sequential calls
+  const [bookResult, chaptersResult] = await Promise.all([
+    supabase
+      .from('books')
+      .select('id, title, author, description, cover_url, total_chapters, total_duration, rating')
+      .eq('id', bookId)
+      .single(),
+    
+    supabase
+      .from('chapters')
+      .select('id, title, chapter_number, audio_url, duration')
+      .eq('book_id', bookId)
+      .order('chapter_number', { ascending: true })
+  ]);
 
-  if (bookError) {
-    console.error('Error fetching book:', bookError);
+  if (bookResult.error) {
+    console.error('Error fetching book:', bookResult.error);
     return null;
   }
 
-  // Fetch chapters
-  const { data: chapters, error: chaptersError } = await supabase
-    .from('chapters')
-    .select('*')
-    .eq('book_id', bookId)
-    .order('chapter_number', { ascending: true });
-
-  if (chaptersError) {
-    console.error('Error fetching chapters:', chaptersError);
-    return { ...book, chapters: [] };
-  }
-
-  return { ...book, chapters: chapters || [] };
+  return { 
+    ...bookResult.data, 
+    chapters: chaptersResult.data || [] 
+  };
 }
 
 export default async function BookDetailPage({ params }: { params: Promise<{ id: string }> }) {
@@ -40,7 +39,7 @@ export default async function BookDetailPage({ params }: { params: Promise<{ id:
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
           <h1 className="text-3xl font-bold text-gray-800 mb-4">Book Not Found</h1>
-          <Link href="/" className="text-purple-600 hover:underline">
+          <Link href="/" prefetch={true} className="text-purple-600 hover:underline">
             ← Back to Home
           </Link>
         </div>
@@ -53,7 +52,7 @@ export default async function BookDetailPage({ params }: { params: Promise<{ id:
       {/* Header */}
       <div className="bg-white shadow-sm py-6 mb-8">
         <div className="max-w-7xl mx-auto px-4">
-          <Link href="/" className="text-purple-600 hover:underline flex items-center gap-2">
+          <Link href="/" prefetch={true} className="text-purple-600 hover:underline flex items-center gap-2">
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
             </svg>

@@ -1,6 +1,6 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 interface BookClickHandlerProps {
   book: {
@@ -13,17 +13,11 @@ interface BookClickHandlerProps {
 }
 
 export default function BookClickHandler({ book, children }: BookClickHandlerProps) {
-  const router = useRouter();
-
-  const handleClick = () => {
-    // Navigate to the book detail page with chapters
-    router.push(`/book/${book.id}`);
-  };
-
+  // 🚀 OPTIMIZED: Use Link component for instant prefetching and navigation
   return (
-    <div onClick={handleClick} className="cursor-pointer">
+    <Link href={`/book/${book.id}`} className="block" prefetch={true}>
       {children}
-    </div>
+    </Link>
   );
 }
 

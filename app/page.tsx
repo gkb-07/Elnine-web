@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { supabase } from '@/lib/supabase';
+import { Suspense } from 'react';
 import HomeSections from '@/components/HomeSections';
 
 // Fetch books from Supabase
@@ -129,15 +130,17 @@ export default async function HomePage() {
 
       {/* Main Content - Always show sections */}
       <div className="py-12">
-        <HomeSections 
-          allBooks={allBooks}
-          trendingBooks={trendingBooks}
-          fictionBooks={fictionBooks}
-          romanceBooks={romanceBooks}
-          mysteryBooks={mysteryBooks}
-          biographyBooks={biographyBooks}
-          newlyReleasedBooks={newlyReleasedBooks}
-        />
+        <Suspense fallback={<div className="text-center py-8">Loading...</div>}>
+          <HomeSections 
+            allBooks={allBooks}
+            trendingBooks={trendingBooks}
+            fictionBooks={fictionBooks}
+            romanceBooks={romanceBooks}
+            mysteryBooks={mysteryBooks}
+            biographyBooks={biographyBooks}
+            newlyReleasedBooks={newlyReleasedBooks}
+          />
+        </Suspense>
       </div>
     </div>
   );

@@ -9,7 +9,7 @@ async function getBooks() {
     .from('books')
     .select('*')
     .eq('is_published', true)
-    .order('cover_url', { ascending: false, nullsLast: true }) // Books with covers first
+    .order('cover_url', { ascending: false, nullsFirst: false }) // Books with covers first
     .order('created_at', { ascending: false }); // Then by newest
 
   if (error) {

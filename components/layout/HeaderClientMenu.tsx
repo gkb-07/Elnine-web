@@ -1,12 +1,11 @@
 "use client";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import { createSupabaseBrowserClient } from "@/lib/supabase/browser";
+import { supabase } from "@/lib/supabase";
 
 const initialFrom = (s?: string | null) => (s?.[0] ?? "U").toUpperCase();
 
 export default function HeaderClientMenu({ initialEmail }: { initialEmail: string | null }) {
-  const supabase = createSupabaseBrowserClient();
   const [email, setEmail] = useState(initialEmail);
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement | null>(null);
@@ -17,7 +16,7 @@ export default function HeaderClientMenu({ initialEmail }: { initialEmail: strin
       setEmail(session?.user?.email ?? null);
     });
     return () => sub.subscription.unsubscribe();
-  }, [supabase]);
+  }, []);
 
   // Close dropdown when clicking outside
   useEffect(() => {

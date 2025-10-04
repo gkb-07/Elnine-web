@@ -29,10 +29,19 @@ function BookCover({ coverUrl, title }: { coverUrl?: string; title: string }) {
   }
   
   return (
-    <div className="w-full h-full bg-gradient-to-br from-purple-600 to-purple-800 flex items-center justify-center">
+    <div className="w-full h-full bg-gradient-to-br from-purple-600 to-purple-800 flex items-center justify-center relative">
       <svg className="w-16 h-16 text-white/30" fill="currentColor" viewBox="0 0 24 24">
         <path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4z" />
       </svg>
+      
+      {/* Coming Soon Overlay */}
+      <div className="absolute inset-0 bg-black/60 flex items-center justify-center">
+        <div className="text-center">
+          <div className="bg-purple-600 text-white px-2 py-1 rounded-full text-xs font-semibold">
+            Coming Soon
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
@@ -79,17 +88,29 @@ export default function BookSection({ title, books, scrollId }: BookSectionProps
           >
             {books.map((book) => (
               <div key={book.id} className="flex-shrink-0 w-32 sm:w-40 md:w-44 lg:w-48">
-                <BookClickHandler book={{ id: book.id, title: book.title, author: book.author, type: "audiobook" }}>
-                  <div className="bg-gray-900 rounded-xl overflow-hidden hover:scale-105 transition-transform duration-300 shadow-lg">
+                {book.cover_url ? (
+                  <BookClickHandler book={{ id: book.id, title: book.title, author: book.author, type: "audiobook" }}>
+                    <div className="bg-gray-900 rounded-xl overflow-hidden hover:scale-105 transition-transform duration-300 shadow-lg">
+                      <div className="aspect-[3/4] relative">
+                        <BookCover coverUrl={book.cover_url} title={book.title} />
+                      </div>
+                      <div className="p-3">
+                        <h3 className="font-semibold text-white truncate text-sm">{book.title}</h3>
+                        <p className="text-gray-400 text-xs truncate">{book.author}</p>
+                      </div>
+                    </div>
+                  </BookClickHandler>
+                ) : (
+                  <div className="bg-gray-900 rounded-xl overflow-hidden shadow-lg">
                     <div className="aspect-[3/4] relative">
                       <BookCover coverUrl={book.cover_url} title={book.title} />
                     </div>
                     <div className="p-3">
-                      <h3 className="font-semibold text-white truncate text-sm">{book.title}</h3>
-                      <p className="text-gray-400 text-xs truncate">{book.author}</p>
+                      <h3 className="font-semibold text-white truncate text-sm">Coming Soon</h3>
+                      <p className="text-gray-400 text-xs truncate">New content</p>
                     </div>
                   </div>
-                </BookClickHandler>
+                )}
               </div>
             ))}
           </div>

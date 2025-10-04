@@ -14,7 +14,7 @@ body {
   background-color: #ffffff;
   color: #1a1a1a;
   line-height: 1.5;
-  padding-bottom: 100px; /* Space for fixed player */
+  padding-bottom: 0;
   font-weight: 400;
 }
 
@@ -148,10 +148,6 @@ img {
 
 /* Responsive design helpers */
 @media (max-width: 768px) {
-  body {
-    padding-bottom: 120px; /* More space for mobile player */
-  }
-  
   .card-hover:hover {
     transform: none; /* Disable hover effects on mobile */
   }

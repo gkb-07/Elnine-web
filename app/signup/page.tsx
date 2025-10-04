@@ -1,10 +1,9 @@
 "use client";
 import Link from "next/link";
 import { FormEvent, useState } from "react";
-import { createSupabaseBrowserClient } from "@/lib/supabase/browser";
+import { supabase } from "@/lib/supabase";
 
 export default function SignUpPage() {
-  const supabase = createSupabaseBrowserClient();
   const [error, setError] = useState<string|null>(null);
   const [msg, setMsg] = useState<string|null>(null);
   const [loading, setLoading] = useState(false);

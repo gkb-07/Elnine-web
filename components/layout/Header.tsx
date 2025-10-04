@@ -14,7 +14,9 @@ export default function Header() {
   useEffect(() => {
     // Get initial user
     const getUser = async () => {
+      console.log('Header: Getting initial user...');
       const { data: { user } } = await supabase.auth.getUser();
+      console.log('Header: Initial user:', user?.email || 'No user');
       setUser(user);
       setLoading(false);
     };
@@ -24,6 +26,7 @@ export default function Header() {
     // Listen for auth changes
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       (event, session) => {
+        console.log('Header: Auth state change:', event, session?.user?.email || 'No user');
         setUser(session?.user ?? null);
         setLoading(false);
       }

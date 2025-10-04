@@ -28,30 +28,52 @@ export default function BookCard({ book }: BookCardProps) {
     return `${minutes}m`;
   };
 
+  // If no cover, show generic "Coming Soon" card
+  if (!book.cover_url || imageError) {
+    return (
+      <div className="bg-gray-900 rounded-xl overflow-hidden shadow-lg">
+        <div className="relative h-48 bg-gradient-to-br from-purple-600 to-purple-800 flex items-center justify-center">
+          <svg
+            className="w-16 h-16 text-white/30"
+            fill="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4z" />
+          </svg>
+          
+          {/* Coming Soon Overlay */}
+          <div className="absolute inset-0 bg-black/60 flex items-center justify-center">
+            <div className="text-center">
+              <div className="bg-purple-600 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                Coming Soon
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        {/* Generic Coming Soon Info */}
+        <div className="p-4">
+          <h3 className="font-semibold text-base text-white mb-1 line-clamp-2">
+            Coming Soon
+          </h3>
+          <p className="text-gray-400 text-sm mb-3">New content</p>
+        </div>
+      </div>
+    );
+  }
+
+  // If has cover, show normal book card
   return (
     <Link href={`/book/${book.id}`} className="block">
       <div className="bg-gray-900 rounded-xl overflow-hidden hover:scale-105 transition-transform duration-300 cursor-pointer shadow-lg">
         {/* Cover Image */}
         <div className="relative h-48 bg-gradient-to-br from-purple-600 to-purple-800">
-          {book.cover_url && !imageError ? (
-            <img
-              src={book.cover_url}
-              alt={book.title}
-              className="w-full h-full object-cover"
-              onError={() => setImageError(true)}
-            />
-          ) : (
-            // Fallback icon if no cover or error loading
-            <div className="w-full h-full flex items-center justify-center">
-              <svg
-                className="w-16 h-16 text-white/30"
-                fill="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4z" />
-              </svg>
-            </div>
-          )}
+          <img
+            src={book.cover_url}
+            alt={book.title}
+            className="w-full h-full object-cover"
+            onError={() => setImageError(true)}
+          />
         </div>
 
         {/* Book Info */}

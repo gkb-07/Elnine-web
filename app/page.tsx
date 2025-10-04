@@ -3,13 +3,14 @@ import { supabase } from '@/lib/supabase';
 import { Suspense } from 'react';
 import HomeSections from '@/components/HomeSections';
 
-// Fetch books from Supabase
+// Fetch books from Supabase (prioritize books with covers)
 async function getBooks() {
   const { data: books, error } = await supabase
     .from('books')
     .select('*')
     .eq('is_published', true)
-    .order('created_at', { ascending: false });
+    .order('cover_url', { ascending: false, nullsLast: true }) // Books with covers first
+    .order('created_at', { ascending: false }); // Then by newest
 
   if (error) {
     console.error('Error fetching books:', error);
@@ -19,61 +20,89 @@ async function getBooks() {
   return books || [];
 }
 
-// Fetch books by category (with fallback if category column doesn't exist)
+// Fetch books by category (logical sorting: covers first, then newest)
 async function getBooksByCategory(category: string, limit = 12) {
   const { data: books, error } = await supabase
     .from('books')
     .select('*')
     .eq('is_published', true)
-    .eq('category', category)
-    .limit(limit);
+    .eq('category', category);
 
   if (error) {
     console.error('Error fetching books by category:', error);
-    // Fallback: if category column doesn't exist, just return recent books
+    // Fallback: if category column doesn't exist, get all books and apply custom sorting
     const { data: fallbackBooks } = await supabase
       .from('books')
       .select('*')
-      .eq('is_published', true)
-      .limit(limit);
-    return fallbackBooks || [];
+      .eq('is_published', true);
+    
+    if (!fallbackBooks) return [];
+    
+    console.log('Top Picks - All books:', fallbackBooks.map(b => b.title));
+
+    // Logical sorting: prioritize books with covers, then by creation date
+    const sortedBooks = fallbackBooks.sort((a, b) => {
+      // First priority: books with covers
+      if (a.cover_url && !b.cover_url) return -1;
+      if (!a.cover_url && b.cover_url) return 1;
+      
+      // Second priority: creation date (newest first)
+      return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
+    });
+
+    console.log('Top Picks - Sorted books:', sortedBooks.map(b => b.title));
+
+    return sortedBooks.slice(0, limit);
   }
 
-  return books || [];
+  if (!books) return [];
+
+  console.log('Top Picks Category - All books:', books.map(b => b.title));
+
+  // Logical sorting: prioritize books with covers, then by creation date
+  const sortedBooks = books.sort((a, b) => {
+    // First priority: books with covers
+    if (a.cover_url && !b.cover_url) return -1;
+    if (!a.cover_url && b.cover_url) return 1;
+    
+    // Second priority: creation date (newest first)
+    return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
+  });
+
+  console.log('Top Picks Category - Sorted books:', sortedBooks.map(b => b.title));
+
+  return sortedBooks.slice(0, limit);
 }
 
-// Fetch trending books (most played - for now just recent)
+// Fetch trending books (logical sorting: covers first, then newest)
 async function getTrendingBooks(limit = 12) {
   const { data: books, error } = await supabase
     .from('books')
     .select('*')
-    .eq('is_published', true)
-    .order('created_at', { ascending: false })
-    .limit(limit);
+    .eq('is_published', true);
 
   if (error) {
     console.error('Error fetching trending books:', error);
     return [];
   }
 
-  return books || [];
-}
+  if (!books) return [];
 
-// Fetch newly released books
-async function getNewlyReleasedBooks(limit = 12) {
-  const { data: books, error } = await supabase
-    .from('books')
-    .select('*')
-    .eq('is_published', true)
-    .order('created_at', { ascending: false })
-    .limit(limit);
+  console.log('All books:', books.map(b => b.title));
 
-  if (error) {
-    console.error('Error fetching new books:', error);
-    return [];
-  }
+  // Logical sorting: prioritize books with covers, then by creation date
+  const sortedBooks = books.sort((a, b) => {
+    // First priority: books with covers
+    if (a.cover_url && !b.cover_url) return -1;
+    if (!a.cover_url && b.cover_url) return 1;
+    
+    // Second priority: creation date (newest first)
+    return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
+  });
 
-  return books || [];
+  console.log('Sorted books:', sortedBooks.map(b => b.title));
+  
+  return sortedBooks.slice(0, limit);
 }
 
 export default async function HomePage() {
@@ -121,7 +150,7 @@ export default async function HomePage() {
       </section>
 
       {/* Main Content - Always show sections */}
-      <div className="py-12">
+      <div className="py-8">
         <Suspense fallback={<div className="text-center py-8">Loading...</div>}>
           <HomeSections 
             allBooks={allBooks}

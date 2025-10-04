@@ -18,24 +18,66 @@ export default function ProfilePage() {
 
   useEffect(() => {
     const getUserAndProfile = async () => {
-      const { data: { user } } = await supabase.auth.getUser();
-      
-      if (!user) {
+      try {
+        console.log('Profile page: Checking authentication...');
+        const { data: { user }, error: userError } = await supabase.auth.getUser();
+        
+        if (userError) {
+          console.error('Profile page: Error getting user:', userError);
+          router.push('/signin');
+          return;
+        }
+        
+        if (!user) {
+          console.log('Profile page: No user found, redirecting to signin');
+          router.push('/signin');
+          return;
+        }
+        
+        console.log('Profile page: User found:', user.email, 'ID:', user.id);
+        setUser(user);
+        
+        // Fetch profile meta (plan). If not present, default to free
+        const { data: profileData, error: profileError } = await supabase
+          .from('profiles')
+          .select('plan, full_name, avatar_url')
+          .eq('id', user.id)
+          .single();
+        
+        if (profileError) {
+          if (profileError.code === 'PGRST116') {
+            // No profile found - create a default one
+            console.log('Profile page: No profile found, creating default profile');
+            const { data: newProfile, error: insertError } = await supabase
+              .from('profiles')
+              .insert({
+                id: user.id,
+                full_name: user.email,
+                plan: 'free'
+              })
+              .select('plan, full_name, avatar_url')
+              .single();
+            
+            if (insertError) {
+              console.error('Profile page: Error creating profile:', insertError);
+              setProfile({ plan: 'free' });
+            } else {
+              console.log('Profile page: Created new profile:', newProfile);
+              setProfile(newProfile);
+            }
+          } else {
+            console.error('Profile page: Error fetching profile:', profileError);
+            setProfile({ plan: 'free' });
+          }
+        } else {
+          console.log('Profile page: Profile data:', profileData);
+          setProfile(profileData);
+        }
+        setLoading(false);
+      } catch (error) {
+        console.error('Profile page: Unexpected error:', error);
         router.push('/signin');
-        return;
       }
-      
-      setUser(user);
-      
-      // Fetch profile meta (plan). If not present, default to free
-      const { data: profileData } = await supabase
-        .from('profiles')
-        .select('plan, full_name, avatar_url')
-        .eq('id', user.id)
-        .single();
-      
-      setProfile(profileData);
-      setLoading(false);
     };
 
     getUserAndProfile();

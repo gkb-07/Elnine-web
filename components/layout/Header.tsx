@@ -33,7 +33,7 @@ export default function Header() {
   }, []);
 
   return (
-    <header className="bg-white border-b border-gray-100 px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
+    <header className="bg-white border-b border-gray-200 px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
       <div className="flex items-center justify-between max-w-7xl mx-auto">
         {/* Left side - Hamburger, Logo and Navigation */}
         <div className="flex items-center gap-3 sm:gap-6">
@@ -42,7 +42,7 @@ export default function Header() {
 
           {/* Logo */}
           <Link href="/" className="logo-link flex items-center gap-2 focus:outline-none border-none no-underline">
-            <div className="text-2xl sm:text-3xl lg:text-4xl font-heading font-semibold text-purple-400 italic border-none">Elninee</div>
+            <div className="text-2xl sm:text-3xl lg:text-4xl font-heading font-semibold text-purple-600 border-none">Elninee</div>
           </Link>
 
           {/* Navigation - Hidden on mobile, visible on tablet+ */}

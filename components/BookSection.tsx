@@ -29,8 +29,8 @@ function BookCover({ coverUrl, title }: { coverUrl?: string; title: string }) {
   }
   
   return (
-    <div className="w-full h-full bg-gradient-to-br from-purple-400 to-purple-600 flex items-center justify-center">
-      <svg className="w-24 h-24 text-white/30" fill="currentColor" viewBox="0 0 24 24">
+    <div className="w-full h-full bg-gradient-to-br from-purple-600 to-purple-800 flex items-center justify-center">
+      <svg className="w-16 h-16 text-white/30" fill="currentColor" viewBox="0 0 24 24">
         <path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4z" />
       </svg>
     </div>
@@ -54,8 +54,8 @@ export default function BookSection({ title, books, scrollId }: BookSectionProps
   return (
     <section className="mb-8 sm:mb-12 lg:mb-16">
       <div className="flex justify-between items-center mb-6 sm:mb-8 px-4 sm:px-6 lg:px-8">
-        <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-800">{title}</h2>
-        <div className="text-gray-400 font-medium text-sm sm:text-base">Books</div>
+        <h2 className="text-xl sm:text-2xl lg:text-3xl font-semibold text-gray-900">{title}</h2>
+        <div className="text-gray-500 font-medium text-sm sm:text-base">Books</div>
       </div>
       
       <div className="relative group">
@@ -80,13 +80,13 @@ export default function BookSection({ title, books, scrollId }: BookSectionProps
             {books.map((book) => (
               <div key={book.id} className="flex-shrink-0 w-32 sm:w-40 md:w-44 lg:w-48">
                 <BookClickHandler book={{ id: book.id, title: book.title, author: book.author, type: "audiobook" }}>
-                  <div className="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow">
+                  <div className="bg-gray-900 rounded-xl overflow-hidden hover:scale-105 transition-transform duration-300 shadow-lg">
                     <div className="aspect-[3/4] relative">
                       <BookCover coverUrl={book.cover_url} title={book.title} />
                     </div>
-                    <div className="p-2 sm:p-3 lg:p-4">
-                      <h3 className="font-bold text-gray-800 truncate text-sm sm:text-base">{book.title}</h3>
-                      <p className="text-gray-600 text-xs sm:text-sm truncate">{book.author}</p>
+                    <div className="p-3">
+                      <h3 className="font-semibold text-white truncate text-sm">{book.title}</h3>
+                      <p className="text-gray-400 text-xs truncate">{book.author}</p>
                     </div>
                   </div>
                 </BookClickHandler>

@@ -77,27 +77,19 @@ async function getNewlyReleasedBooks(limit = 12) {
 }
 
 export default async function HomePage() {
-  // 🚀 OPTIMIZED: Fetch ALL data in parallel for maximum speed
+  // 🚀 OPTIMIZED: Fetch data in parallel for maximum speed
   const [
     allBooks,
     trendingBooks,
-    fictionBooks,
-    romanceBooks,
-    mysteryBooks,
-    biographyBooks,
-    newlyReleasedBooks
+    fictionBooks
   ] = await Promise.all([
     getBooks(),
     getTrendingBooks(12),
-    getBooksByCategory('fiction', 12),
-    getBooksByCategory('romance', 12),
-    getBooksByCategory('mystery', 12),
-    getBooksByCategory('biography', 12),
-    getNewlyReleasedBooks(12)
+    getBooksByCategory('fiction', 12)
   ]);
 
   return (
-    <div className="bg-gray-50 min-h-screen">
+    <div className="bg-white min-h-screen">
       {/* Hero Section - Mobile Optimized Background */}
       <section 
         className="relative h-[60vh] sm:h-[70vh] lg:h-[80vh] bg-gradient-to-br from-purple-900 via-purple-700 to-indigo-800 hero-bg"
@@ -135,10 +127,10 @@ export default async function HomePage() {
             allBooks={allBooks}
             trendingBooks={trendingBooks}
             fictionBooks={fictionBooks}
-            romanceBooks={romanceBooks}
-            mysteryBooks={mysteryBooks}
-            biographyBooks={biographyBooks}
-            newlyReleasedBooks={newlyReleasedBooks}
+            romanceBooks={[]}
+            mysteryBooks={[]}
+            biographyBooks={[]}
+            newlyReleasedBooks={[]}
           />
         </Suspense>
       </div>

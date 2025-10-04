@@ -78,27 +78,7 @@ export default function HomeSections(props: Props) {
 
       {/* Top Picks for You */}
       {(!hasQuery || filtered.fiction.length > 0) && (
-        <BookGrid title="Top Picks for You" books={pickList(filtered.fiction, props.fictionBooks)} />
-      )}
-
-      {/* Top Picks in India */}
-      {(!hasQuery || filtered.romance.length > 0) && (
-        <BookGrid title="Top Picks in India" books={pickList(filtered.romance, props.romanceBooks)} />
-      )}
-
-      {/* Something New */}
-      {(!hasQuery || filtered.mystery.length > 0) && (
-        <BookGrid title="Something New" books={pickList(filtered.mystery, props.mysteryBooks)} />
-      )}
-
-      {/* Featured Stories */}
-      {(!hasQuery || filtered.biography.length > 0) && (
-        <BookGrid title="Featured Stories" books={pickList(filtered.biography, props.biographyBooks)} />
-      )}
-
-      {/* Newly Released */}
-      {(!hasQuery || filtered.newly.length > 0) && (
-        <BookGrid title="Newly Released" books={pickList(filtered.newly, props.newlyReleasedBooks)} />
+        <BookSection title="Top Picks for You" books={pickList(filtered.fiction, props.fictionBooks)} scrollId="top-picks-books" />
       )}
     </>
   );

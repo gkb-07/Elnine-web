@@ -55,16 +55,17 @@ export default function BookGrid({ title, books }: BookGridProps) {
   const secondRowBooks = books.slice(Math.ceil(books.length / 2));
 
   return (
-    <section className="mb-16">
-      <h2 className="text-4xl font-bold text-gray-800 mb-8 px-8">{title}</h2>
+    <section className="mb-8 sm:mb-12 lg:mb-16">
+      <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-800 mb-6 sm:mb-8 px-4 sm:px-6 lg:px-8">{title}</h2>
       
       <div className="relative group">
-        {/* Left Arrow - Centered Vertically */}
+        {/* Left Arrow - Mobile Optimized */}
         <button 
           onClick={() => handleScroll('left')}
-          className="absolute left-4 top-1/2 -translate-y-1/2 z-10 bg-white rounded-full p-3 shadow-lg hover:shadow-xl transition-all opacity-0 group-hover:opacity-100"
+          className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-10 bg-white rounded-full p-2 sm:p-3 shadow-lg hover:shadow-xl transition-all opacity-0 group-hover:opacity-100"
+          aria-label="Scroll left"
         >
-          <svg className="w-6 h-6 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
           </svg>
         </button>
@@ -73,18 +74,18 @@ export default function BookGrid({ title, books }: BookGridProps) {
         <div className="overflow-hidden">
           <div 
             ref={scrollRef}
-            className="overflow-x-auto scrollbar-hide scroll-smooth px-8"
+            className="overflow-x-auto scrollbar-hide scroll-smooth px-4 sm:px-6 lg:px-8"
           >
             {/* First Row */}
-            <div className="flex gap-4 mb-4">
+            <div className="flex gap-3 sm:gap-4 mb-3 sm:mb-4">
               {firstRowBooks.map((book) => (
-                <div key={book.id} className="flex-shrink-0 w-48">
+                <div key={book.id} className="flex-shrink-0 w-32 sm:w-40 md:w-44 lg:w-48">
                   <BookClickHandler book={{ id: book.id, title: book.title, author: book.author, type: "audiobook" }}>
                     <div className="group cursor-pointer">
                       <div className="aspect-[3/4] bg-gray-200 rounded-lg overflow-hidden mb-2 shadow-sm hover:shadow-md transition-shadow">
                         <BookCover coverUrl={book.cover_url} title={book.title} />
                       </div>
-                      <h3 className="font-semibold text-sm text-gray-800 truncate">{book.title}</h3>
+                      <h3 className="font-semibold text-xs sm:text-sm text-gray-800 truncate">{book.title}</h3>
                       <p className="text-xs text-gray-600 truncate">{book.author}</p>
                     </div>
                   </BookClickHandler>
@@ -94,15 +95,15 @@ export default function BookGrid({ title, books }: BookGridProps) {
 
             {/* Second Row */}
             {secondRowBooks.length > 0 && (
-              <div className="flex gap-4">
+              <div className="flex gap-3 sm:gap-4">
                 {secondRowBooks.map((book) => (
-                  <div key={book.id} className="flex-shrink-0 w-48">
+                  <div key={book.id} className="flex-shrink-0 w-32 sm:w-40 md:w-44 lg:w-48">
                     <BookClickHandler book={{ id: book.id, title: book.title, author: book.author, type: "audiobook" }}>
                       <div className="group cursor-pointer">
                         <div className="aspect-[3/4] bg-gray-200 rounded-lg overflow-hidden mb-2 shadow-sm hover:shadow-md transition-shadow">
                           <BookCover coverUrl={book.cover_url} title={book.title} />
                         </div>
-                        <h3 className="font-semibold text-sm text-gray-800 truncate">{book.title}</h3>
+                        <h3 className="font-semibold text-xs sm:text-sm text-gray-800 truncate">{book.title}</h3>
                         <p className="text-xs text-gray-600 truncate">{book.author}</p>
                       </div>
                     </BookClickHandler>
@@ -113,12 +114,13 @@ export default function BookGrid({ title, books }: BookGridProps) {
           </div>
         </div>
         
-        {/* Right Arrow - Centered Vertically */}
+        {/* Right Arrow - Mobile Optimized */}
         <button 
           onClick={() => handleScroll('right')}
-          className="absolute right-4 top-1/2 -translate-y-1/2 z-10 bg-white rounded-full p-3 shadow-lg hover:shadow-xl transition-all opacity-0 group-hover:opacity-100"
+          className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-10 bg-white rounded-full p-2 sm:p-3 shadow-lg hover:shadow-xl transition-all opacity-0 group-hover:opacity-100"
+          aria-label="Scroll right"
         >
-          <svg className="w-6 h-6 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
           </svg>
         </button>

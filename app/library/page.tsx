@@ -1,19 +1,59 @@
-// app/library/page.tsx
-import Link from 'next/link';
-import { redirect } from "next/navigation";
-import { createSupabaseServerClient } from "@/lib/supabase/server";
+'use client';
 
-export default async function LibraryPage() {
-  const supabase = await createSupabaseServerClient();
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user) redirect("/signin");
-  
-  // 🚀 OPTIMIZED: Fetch user's books quickly
-  const { data: userBooks } = await supabase
-    .from('books')
-    .select('id, title, author, cover_url, created_at')
-    .order('created_at', { ascending: false })
-    .limit(20);
+import Link from 'next/link';
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { supabase } from '@/lib/supabase';
+
+interface Book {
+  id: string;
+  title: string;
+  author: string;
+  cover_url?: string;
+  created_at: string;
+}
+
+export default function LibraryPage() {
+  const router = useRouter();
+  const [user, setUser] = useState<any>(null);
+  const [userBooks, setUserBooks] = useState<Book[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const getUserAndBooks = async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      
+      if (!user) {
+        router.push('/signin');
+        return;
+      }
+      
+      setUser(user);
+      
+      // Fetch user's books
+      const { data: books } = await supabase
+        .from('books')
+        .select('id, title, author, cover_url, created_at')
+        .order('created_at', { ascending: false })
+        .limit(20);
+      
+      setUserBooks(books || []);
+      setLoading(false);
+    };
+
+    getUserAndBooks();
+  }, [router]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-600 mx-auto mb-4"></div>
+          <p className="text-gray-600">Loading your library...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gray-50 p-8">
@@ -21,7 +61,7 @@ export default async function LibraryPage() {
         {/* Header */}
         <div className="mb-8">
           <h1 className="text-4xl font-bold text-gray-900">My Library</h1>
-          <p className="text-lg text-gray-600 mt-2">Welcome back, {user.email}</p>
+          <p className="text-lg text-gray-600 mt-2">Welcome back, {user?.email}</p>
         </div>
 
         {/* Quick Actions */}

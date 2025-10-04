@@ -97,28 +97,28 @@ export default async function HomePage() {
 
   return (
     <div className="bg-gray-50 min-h-screen">
-      {/* Hero Section */}
+      {/* Hero Section - Mobile Optimized Background */}
       <section 
-        className="relative h-[60vh] bg-cover bg-center bg-blend-normal"
+        className="relative h-[60vh] sm:h-[70vh] lg:h-[80vh] bg-gradient-to-br from-purple-900 via-purple-700 to-indigo-800 hero-bg"
         style={{
-          backgroundImage: "url('https://m.media-amazon.com/images/I/61MdvINmm7L.jpg')"
+          minHeight: "400px"
         }}
       >
-        <div className="relative z-10 flex items-center justify-center h-full text-center text-white px-8">
-          <div>
-            <h1 className="text-6xl md:text-8xl font-bold mb-6  text-purple-900 leading-tight">
+        <div className="relative z-10 flex items-center justify-center h-full text-center text-white px-4 sm:px-8">
+          <div className="max-w-4xl mx-auto">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold mb-4 sm:mb-6 text-white leading-tight drop-shadow-lg">
               Discover Your<br />
               Sound
             </h1>
-            <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">
-              Immerse yourself in a world of premium audio experiences.<br />
-              From trending hits to hidden gems.
+            <p className="text-base sm:text-lg md:text-xl lg:text-2xl mb-6 sm:mb-8 max-w-3xl mx-auto px-4 text-white/90 drop-shadow-md">
+              Immerse yourself in a world of premium audio experiences.<br className="hidden sm:block" />
+              <span className="sm:hidden"> </span>From trending hits to hidden gems.
             </p>
-            <div className="flex gap-6 justify-center">
+            <div className="flex gap-4 sm:gap-6 justify-center flex-wrap">
               <Link 
                 href="/categories" 
                 prefetch={true}
-                className="border-2 border-white/50 hover:border-white text-white px-8 py-3 rounded-full font-semibold text-lg transition-colors flex items-center gap-2"
+                className="border-2 border-white/50 hover:border-white text-white px-6 sm:px-8 py-2 sm:py-3 rounded-full font-semibold text-base sm:text-lg transition-colors flex items-center gap-2"
               >
                 🎧 Explore Genres
               </Link>

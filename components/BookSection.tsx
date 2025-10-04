@@ -52,19 +52,20 @@ export default function BookSection({ title, books, scrollId }: BookSectionProps
   }
 
   return (
-    <section className="mb-16">
-      <div className="flex justify-between items-center mb-8 px-8">
-        <h2 className="text-4xl font-bold text-gray-800">{title}</h2>
-        <div className="text-gray-400 font-medium">Books</div>
+    <section className="mb-8 sm:mb-12 lg:mb-16">
+      <div className="flex justify-between items-center mb-6 sm:mb-8 px-4 sm:px-6 lg:px-8">
+        <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-800">{title}</h2>
+        <div className="text-gray-400 font-medium text-sm sm:text-base">Books</div>
       </div>
       
       <div className="relative group">
-        {/* Left Arrow */}
+        {/* Left Arrow - Mobile Optimized */}
         <button 
           onClick={() => handleScroll('left')}
-          className="absolute left-4 top-1/2 -translate-y-1/2 z-10 bg-white rounded-full p-3 shadow-lg hover:shadow-xl transition-all opacity-0 group-hover:opacity-100"
+          className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-10 bg-white rounded-full p-2 sm:p-3 shadow-lg hover:shadow-xl transition-all opacity-0 group-hover:opacity-100"
+          aria-label="Scroll left"
         >
-          <svg className="w-6 h-6 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
           </svg>
         </button>
@@ -74,18 +75,18 @@ export default function BookSection({ title, books, scrollId }: BookSectionProps
           <div 
             ref={scrollRef}
             id={scrollId} 
-            className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide scroll-smooth px-8"
+            className="flex gap-3 sm:gap-4 overflow-x-auto pb-4 scrollbar-hide scroll-smooth px-4 sm:px-6 lg:px-8"
           >
             {books.map((book) => (
-              <div key={book.id} className="flex-shrink-0 w-48">
+              <div key={book.id} className="flex-shrink-0 w-32 sm:w-40 md:w-44 lg:w-48">
                 <BookClickHandler book={{ id: book.id, title: book.title, author: book.author, type: "audiobook" }}>
                   <div className="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow">
                     <div className="aspect-[3/4] relative">
                       <BookCover coverUrl={book.cover_url} title={book.title} />
                     </div>
-                    <div className="p-4">
-                      <h3 className="font-bold text-gray-800 truncate">{book.title}</h3>
-                      <p className="text-gray-600 text-sm truncate">{book.author}</p>
+                    <div className="p-2 sm:p-3 lg:p-4">
+                      <h3 className="font-bold text-gray-800 truncate text-sm sm:text-base">{book.title}</h3>
+                      <p className="text-gray-600 text-xs sm:text-sm truncate">{book.author}</p>
                     </div>
                   </div>
                 </BookClickHandler>
@@ -94,12 +95,13 @@ export default function BookSection({ title, books, scrollId }: BookSectionProps
           </div>
         </div>
         
-        {/* Right Arrow */}
+        {/* Right Arrow - Mobile Optimized */}
         <button 
           onClick={() => handleScroll('right')}
-          className="absolute right-4 top-1/2 -translate-y-1/2 z-10 bg-white rounded-full p-3 shadow-lg hover:shadow-xl transition-all opacity-0 group-hover:opacity-100"
+          className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-10 bg-white rounded-full p-2 sm:p-3 shadow-lg hover:shadow-xl transition-all opacity-0 group-hover:opacity-100"
+          aria-label="Scroll right"
         >
-          <svg className="w-6 h-6 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
           </svg>
         </button>

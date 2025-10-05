@@ -1,7 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800;900&family=Fredoka+One:wght@400&family=Montserrat:wght@400;500;600;700;800;900&family=Playfair+Display:wght@400;500;600;700&family=Crimson+Text:wght@400;600;700&display=swap');
 
 * {
   box-sizing: border-box;
@@ -11,8 +11,8 @@
 
 body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  background-color: #ffffff;
-  color: #1a1a1a;
+  background-color: #1a0b2e;
+  color: #ffffff;
   line-height: 1.5;
   padding-bottom: 0;
   font-weight: 400;
@@ -21,7 +21,71 @@ body {
 h1, h2, h3, h4, h5, h6, .heading {
   font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   font-weight: 600;
-  color: #1a1a1a;
+  color: #ffffff;
+}
+
+/* ===== DARK THEME STYLES ===== */
+.dark-bg {
+  background: linear-gradient(135deg, #1a0b2e 0%, #2d1b69 50%, #1a0b2e 100%);
+}
+
+.dark-card {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.dark-text {
+  color: #ffffff;
+}
+
+.dark-text-secondary {
+  color: #a0a0a0;
+}
+
+/* ===== MODERN BOLD FONTS ===== */
+.font-modern-bold {
+  font-family: 'Fredoka One', 'Montserrat', 'Poppins', sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.8);
+  color: #9333ea;
+  filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.5));
+}
+
+.font-hero-title {
+  font-family: 'Montserrat', 'Poppins', sans-serif;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.9);
+  color: #9333ea;
+  filter: drop-shadow(3px 3px 6px rgba(0, 0, 0, 0.7));
+}
+
+.font-bubbly-purple {
+  font-family: 'Fredoka One', 'Montserrat', sans-serif;
+  font-weight: 400;
+  letter-spacing: 0.03em;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+  color: #9333ea;
+  filter: drop-shadow(1px 1px 2px rgba(0, 0, 0, 0.6));
+}
+
+.font-section-title {
+  font-family: 'Playfair Display', 'Crimson Text', serif;
+  font-weight: 400;
+  font-size: 2.25rem;
+  letter-spacing: 0.02em;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.font-section-title-purple {
+  font-family: 'Playfair Display', 'Crimson Text', serif;
+  font-weight: 400;
+  font-size: 2.25rem;
+  letter-spacing: 0.02em;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  color: #9333ea !important;
 }
 
 /* Smooth scrolling */
@@ -242,4 +306,108 @@ input[type="range"].slider::-moz-range-thumb {
   cursor: pointer;
   border: none;
   box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+/* ===== VIDEO BACKGROUND OPTIMIZATIONS ===== */
+
+/* Video Background Styles */
+video {
+  object-fit: cover;
+  object-position: center;
+  /* Slow down video playback */
+  animation-play-state: paused;
+}
+
+/* Custom video controls for slower playback */
+.slow-video {
+  animation-duration: 2s; /* Slower animation */
+}
+
+/* Ensure video covers full container */
+.hero-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+}
+
+/* Video overlay for better text readability */
+.video-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    135deg,
+    rgba(0, 0, 0, 0.4) 0%,
+    rgba(0, 0, 0, 0.2) 50%,
+    rgba(0, 0, 0, 0.6) 100%
+  );
+  z-index: 1;
+}
+
+/* Video background optimizations */
+.video-background {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100vw;
+  height: 100vh;
+  transform: translate(-50%, -50%) scale(1.1);
+  z-index: -1;
+}
+
+/* Mobile video optimizations */
+@media (max-width: 768px) {
+  video {
+    object-position: center center;
+  }
+  
+  /* Mobile video adjustments */
+  .video-background {
+    transform: translate(-50%, -50%) scale(1.2);
+  }
+}
+
+/* Tablet optimizations */
+@media (max-width: 1024px) and (min-width: 769px) {
+  .video-background {
+    transform: translate(-50%, -50%) scale(1.15);
+  }
+}
+
+/* Video loading states */
+.video-loading {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.video-loading::after {
+  content: '';
+  width: 40px;
+  height: 40px;
+  border: 4px solid rgba(255, 255, 255, 0.3);
+  border-top: 4px solid white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+/* Performance optimizations for video */
+video {
+  will-change: transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* Ensure video doesn't interfere with text selection */
+video {
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-select: none;
 }

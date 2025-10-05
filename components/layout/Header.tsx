@@ -36,7 +36,7 @@ export default function Header() {
   }, []);
 
   return (
-    <header className="bg-white border-b border-gray-200 px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
+        <header className="bg-gray-900/90 backdrop-blur-sm border-b border-gray-700 px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
       <div className="flex items-center justify-between max-w-7xl mx-auto">
         {/* Left side - Hamburger, Logo and Navigation */}
         <div className="flex items-center gap-3 sm:gap-6">
@@ -45,18 +45,18 @@ export default function Header() {
 
           {/* Logo */}
           <Link href="/" className="logo-link flex items-center gap-2 focus:outline-none border-none no-underline">
-            <div className="text-2xl sm:text-3xl lg:text-4xl font-heading font-semibold text-purple-600 border-none">Elninee</div>
+            <div className="text-2xl sm:text-3xl lg:text-4xl font-heading font-semibold border-none font-section-title-purple">Elninee</div>
           </Link>
 
           {/* Navigation - Hidden on mobile, visible on tablet+ */}
           <nav className="hidden md:flex items-center gap-4 lg:gap-6">
-            <Link href="/categories" className="text-gray-700 font-medium hover:text-gray-900 transition-colors text-sm lg:text-base">
+            <Link href="/categories" className="text-white font-medium hover:text-purple-400 transition-colors text-sm lg:text-base font-section-title">
               Category
             </Link>
-            <Link href="/library" className="text-gray-700 font-medium hover:text-gray-900 transition-colors text-sm lg:text-base">
+            <Link href="/library" className="text-gray-200 font-medium hover:text-purple-400 transition-colors text-sm lg:text-base font-section-title">
               Library
             </Link>
-            <Link href="/about" className="text-gray-700 font-medium hover:text-gray-900 transition-colors text-sm lg:text-base">
+            <Link href="/about" className="text-gray-200 font-medium hover:text-purple-400 transition-colors text-sm lg:text-base font-section-title">
               About
             </Link>
           </nav>

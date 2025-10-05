@@ -96,30 +96,32 @@ export default async function CategoriesPage() {
   ];
 
   return (
-    <div className="space-y-12 pb-32">
-      {/* Header */}
-      <div className="text-center space-y-4">
-        <h1 className="text-4xl md:text-6xl font-black text-gray-900">
-          Categories
-        </h1>
-        <p className="text-xl text-gray-700 max-w-2xl mx-auto">
-          Discover intimate stories and audio experiences across diverse categories
-        </p>
-      </div>
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900 py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto">
+        {/* Header */}
+        <div className="text-center space-y-4 mb-12">
+          <h1 className="text-4xl md:text-6xl font-bold text-white font-section-title">
+            Categories
+          </h1>
+          <p className="text-xl text-gray-300 max-w-2xl mx-auto">
+            Discover intimate stories and audio experiences across diverse categories
+          </p>
+        </div>
 
-      {/* Categories Tags */}
-      <div className="max-w-4xl mx-auto">
-        <div className="flex flex-wrap gap-3 justify-center">
-          {categories.map((cat) => (
-            <Link
-              key={cat.id}
-              href={`/categories/${cat.slug}`}
-              prefetch={true}
-              className="px-6 py-3 bg-white border border-gray-200 rounded-full text-gray-700 hover:bg-purple-50 hover:border-purple-300 hover:text-purple-700 transition-all duration-200 shadow-sm hover:shadow-md font-medium"
-            >
-              {cat.title}
-            </Link>
-          ))}
+        {/* Categories Tags */}
+        <div className="max-w-4xl mx-auto">
+          <div className="flex flex-wrap gap-3 justify-center">
+            {categories.map((cat) => (
+              <Link
+                key={cat.id}
+                href={`/categories/${cat.slug}`}
+                prefetch={true}
+                className="px-6 py-3 bg-white border border-gray-200 rounded-full text-gray-700 hover:bg-purple-50 hover:border-purple-300 hover:text-purple-700 transition-all duration-200 shadow-sm hover:shadow-md font-medium"
+              >
+                {cat.title}
+              </Link>
+            ))}
+          </div>
         </div>
       </div>
     </div>

@@ -118,31 +118,53 @@ export default async function HomePage() {
   ]);
 
   return (
-    <div className="bg-white min-h-screen">
-      {/* Hero Section - Mobile Optimized Background */}
+    <div className="bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900 min-h-screen">
+      {/* Hero Section with Video Background */}
       <section 
-        className="relative h-[60vh] sm:h-[70vh] lg:h-[80vh] bg-gradient-to-br from-purple-900 via-purple-700 to-indigo-800 hero-bg"
+        className="relative h-[60vh] sm:h-[70vh] lg:h-[80vh] overflow-hidden"
         style={{
           minHeight: "400px"
         }}
       >
+        {/* Video Background */}
+        <div className="absolute inset-0 w-full h-full">
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            className="w-full h-full object-cover"
+            style={{ 
+              transform: 'scale(1.1) translateY(2%)', 
+              transformOrigin: 'center center',
+              width: '100%',
+              height: '100%'
+            }}
+          >
+            <source src="/videos/Video_Generation_Request_For_Website.mp4" type="video/mp4" />
+            {/* Fallback for browsers that don't support video */}
+            <div className="w-full h-full bg-gradient-to-br from-purple-900 via-purple-700 to-indigo-800"></div>
+          </video>
+          
+          {/* Dark overlay for better text readability */}
+          <div className="absolute inset-0 bg-black/40"></div>
+          
+          {/* Gradient overlay for smooth transition */}
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-black/60"></div>
+        </div>
+
         <div className="relative z-10 flex items-center justify-center h-full text-center text-white px-4 sm:px-8">
           <div className="max-w-4xl mx-auto">
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold mb-4 sm:mb-6 text-white leading-tight drop-shadow-lg">
-              Discover Your<br />
-              Sound
-            </h1>
-            <p className="text-base sm:text-lg md:text-xl lg:text-2xl mb-6 sm:mb-8 max-w-3xl mx-auto px-4 text-white/90 drop-shadow-md">
-              Immerse yourself in a world of premium audio experiences.<br className="hidden sm:block" />
-              <span className="sm:hidden"> </span>From trending hits to hidden gems.
-            </p>
+              <h1 className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold mb-6 sm:mb-8 leading-tight font-section-title-purple">
+                Immerse in your fantasies
+              </h1>
             <div className="flex gap-4 sm:gap-6 justify-center flex-wrap">
               <Link 
                 href="/categories" 
                 prefetch={true}
-                className="border-2 border-white/50 hover:border-white text-white px-6 sm:px-8 py-2 sm:py-3 rounded-full font-semibold text-base sm:text-lg transition-colors flex items-center gap-2"
+                className="group border-2 border-white/50 hover:border-white text-white px-6 sm:px-8 py-2 sm:py-3 rounded-full font-semibold text-base sm:text-lg transition-all duration-300 flex items-center gap-2 hover:scale-105"
               >
-                🎧 Explore Genres
+                <span className="group-hover:animate-spin">🎧</span> Explore Genres
               </Link>
             </div>
           </div>
@@ -150,7 +172,7 @@ export default async function HomePage() {
       </section>
 
       {/* Main Content - Always show sections */}
-      <div className="py-8">
+      <div className="py-8 bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900">
         <Suspense fallback={<div className="text-center py-8">Loading...</div>}>
           <HomeSections 
             allBooks={allBooks}

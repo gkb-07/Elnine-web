@@ -63,8 +63,8 @@ export default function BookSection({ title, books, scrollId }: BookSectionProps
   return (
     <section className="mb-8 sm:mb-12 lg:mb-16">
       <div className="flex justify-between items-center mb-6 sm:mb-8 px-4 sm:px-6 lg:px-8">
-        <h2 className="text-xl sm:text-2xl lg:text-3xl font-semibold text-gray-900">{title}</h2>
-        <div className="text-gray-500 font-medium text-sm sm:text-base">Books</div>
+        <h2 className="text-xl sm:text-2xl lg:text-3xl font-semibold text-white font-section-title">{title}</h2>
+        <div className="text-gray-300 font-medium text-sm sm:text-base">Books</div>
       </div>
       
       <div className="relative group">

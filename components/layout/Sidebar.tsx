@@ -11,7 +11,7 @@ export default function Sidebar() {
       {/* Hamburger Button */}
       <button 
         onClick={() => setIsOpen(!isOpen)}
-        className="w-6 h-6 flex flex-col justify-center gap-1 text-gray-700 hover:text-gray-900 transition-colors focus:outline-none z-50"
+        className="w-6 h-6 flex flex-col justify-center gap-1 text-white-700 hover:text-gray-900 transition-colors focus:outline-none z-50"
       >
         <span className="block w-6 h-0.5 bg-current"></span>
         <span className="block w-6 h-0.5 bg-current"></span>

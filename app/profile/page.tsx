@@ -99,7 +99,7 @@ export default function ProfilePage() {
   return (
     <div className="py-6 sm:py-8 lg:py-12">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
-        <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-6 sm:mb-8">Your Profile</h1>
+        <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-6 sm:mb-8 text-white">Your Profile</h1>
 
         {/* Header card - Mobile Optimized */}
         <div className="bg-white rounded-2xl shadow-sm p-4 sm:p-6 lg:p-8 mb-6 sm:mb-8 lg:mb-10">
@@ -109,8 +109,8 @@ export default function ProfilePage() {
                 {user?.email?.[0].toUpperCase()}
               </div>
               <div>
-                <h2 className="text-lg sm:text-xl lg:text-2xl font-bold">{profile?.full_name || user?.email}</h2>
-                <p className="text-sm sm:text-base text-gray-500">{user?.email}</p>
+                <h2 className="text-lg sm:text-xl lg:text-2xl font-bold text-gray-900">{profile?.full_name || user?.email}</h2>
+                <p className="text-sm sm:text-base text-gray-600">{user?.email}</p>
               </div>
             </div>
             <span className={`px-3 sm:px-4 py-2 rounded-full text-xs sm:text-sm font-semibold w-fit ${plan === 'premium' ? 'bg-yellow-100 text-yellow-800' : 'bg-gray-100 text-gray-700'}`}>
@@ -124,11 +124,11 @@ export default function ProfilePage() {
           {/* Free Plan */}
           <div className={`rounded-2xl border ${plan === 'free' ? 'border-indigo-500' : 'border-gray-200'} bg-white p-4 sm:p-6 flex flex-col`}>
             <div className="mb-3 sm:mb-4">
-              <h3 className="text-lg sm:text-xl font-bold">Free</h3>
-              <p className="text-sm sm:text-base text-gray-500">Good for trying things out</p>
+              <h3 className="text-lg sm:text-xl font-bold text-gray-900">Free</h3>
+              <p className="text-sm sm:text-base text-gray-600">Good for trying things out</p>
             </div>
-            <div className="text-2xl sm:text-3xl font-extrabold mb-3 sm:mb-4">₹0<span className="text-sm sm:text-base font-medium text-gray-500">/mo</span></div>
-            <ul className="space-y-2 text-xs sm:text-sm text-gray-700 mb-4 sm:mb-6">
+            <div className="text-2xl sm:text-3xl font-extrabold mb-3 sm:mb-4 text-gray-900">₹0<span className="text-sm sm:text-base font-medium text-gray-600">/mo</span></div>
+            <ul className="space-y-2 text-xs sm:text-sm text-gray-800 mb-4 sm:mb-6">
               <li>• Listen with ads</li>
               <li>• Basic audio quality</li>
               <li>• Limited skips</li>
@@ -142,11 +142,11 @@ export default function ProfilePage() {
           <div className={`rounded-2xl border ${plan === 'premium' ? 'border-indigo-500' : 'border-gray-200'} bg-white p-4 sm:p-6 flex flex-col relative`}>
             <span className="absolute -top-2 sm:-top-3 right-2 sm:right-4 bg-indigo-600 text-white text-xs font-bold px-2 py-1 rounded">Popular</span>
             <div className="mb-3 sm:mb-4">
-              <h3 className="text-lg sm:text-xl font-bold">Premium</h3>
-              <p className="text-sm sm:text-base text-gray-500">Ad‑free, high quality, offline</p>
+              <h3 className="text-lg sm:text-xl font-bold text-gray-900">Premium</h3>
+              <p className="text-sm sm:text-base text-gray-600">Ad‑free, high quality, offline</p>
             </div>
-            <div className="text-2xl sm:text-3xl font-extrabold mb-3 sm:mb-4">₹199<span className="text-sm sm:text-base font-medium text-gray-500">/mo</span></div>
-            <ul className="space-y-2 text-xs sm:text-sm text-gray-700 mb-4 sm:mb-6">
+            <div className="text-2xl sm:text-3xl font-extrabold mb-3 sm:mb-4 text-gray-900">₹199<span className="text-sm sm:text-base font-medium text-gray-600">/mo</span></div>
+            <ul className="space-y-2 text-xs sm:text-sm text-gray-800 mb-4 sm:mb-6">
               <li>• No ads</li>
               <li>• High quality audio</li>
               <li>• Unlimited skips</li>
@@ -160,15 +160,15 @@ export default function ProfilePage() {
 
         {/* Account section */}
         <div className="mt-6 sm:mt-8 lg:mt-10 bg-white rounded-2xl shadow-sm p-4 sm:p-6">
-          <h3 className="text-base sm:text-lg font-bold mb-3 sm:mb-4">Account</h3>
+          <h3 className="text-base sm:text-lg font-bold mb-3 sm:mb-4 text-gray-900">Account</h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 text-xs sm:text-sm">
             <div>
-              <div className="text-gray-500">Email</div>
-              <div className="font-medium">{user?.email}</div>
+              <div className="text-gray-600">Email</div>
+              <div className="font-medium text-gray-900">{user?.email}</div>
             </div>
             <div>
-              <div className="text-gray-500">User ID</div>
-              <div className="font-mono text-xs text-gray-600">{user?.id}</div>
+              <div className="text-gray-600">User ID</div>
+              <div className="font-mono text-xs text-gray-700">{user?.id}</div>
             </div>
           </div>
         </div>

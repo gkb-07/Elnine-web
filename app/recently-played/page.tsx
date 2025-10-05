@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-export default function DownloadsPage() {
+export default function RecentlyPlayedPage() {
   return (
     <div className="min-h-screen bg-white flex items-center justify-center px-4">
       <div className="max-w-xl w-full text-center py-20">
@@ -8,14 +8,14 @@ export default function DownloadsPage() {
         <div className="mb-8 flex justify-center">
           <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center">
             <svg className="w-10 h-10 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
           </div>
         </div>
 
         {/* Heading */}
         <h1 className="text-4xl font-bold text-gray-900 mb-4">
-          Downloads
+          Recently Played
         </h1>
 
         {/* Description */}
@@ -45,3 +45,4 @@ export default function DownloadsPage() {
     </div>
   );
 }
+

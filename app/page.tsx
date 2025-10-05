@@ -121,13 +121,13 @@ export default async function HomePage() {
     <div className="bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900 min-h-screen">
       {/* Hero Section with Video Background */}
       <section 
-        className="relative h-[60vh] sm:h-[70vh] lg:h-[80vh] overflow-hidden"
+        className="relative h-[60vh] sm:h-[70vh] lg:h-[80vh] overflow-hidden z-0"
         style={{
           minHeight: "400px"
         }}
       >
         {/* Video Background */}
-        <div className="absolute inset-0 w-full h-full">
+        <div className="absolute inset-0 w-full h-full pointer-events-none z-0">
           <video
             autoPlay
             muted
@@ -153,7 +153,7 @@ export default async function HomePage() {
           <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-black/60"></div>
         </div>
 
-        <div className="relative z-10 flex items-center justify-center h-full text-center text-white px-4 sm:px-8">
+        <div className="relative flex items-center justify-center h-full text-center text-white px-4 sm:px-8">
           <div className="max-w-4xl mx-auto">
               <h1 className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold mb-6 sm:mb-8 leading-tight font-section-title-purple">
                 Immerse in your fantasies

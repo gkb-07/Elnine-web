@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-export default function DownloadsPage() {
+export default function HelpPage() {
   return (
     <div className="min-h-screen bg-white flex items-center justify-center px-4">
       <div className="max-w-xl w-full text-center py-20">
@@ -8,14 +8,14 @@ export default function DownloadsPage() {
         <div className="mb-8 flex justify-center">
           <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center">
             <svg className="w-10 h-10 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
           </div>
         </div>
 
         {/* Heading */}
         <h1 className="text-4xl font-bold text-gray-900 mb-4">
-          Downloads
+          Help & Feedback
         </h1>
 
         {/* Description */}
@@ -45,3 +45,4 @@ export default function DownloadsPage() {
     </div>
   );
 }
+

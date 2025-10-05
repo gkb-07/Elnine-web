@@ -36,7 +36,7 @@ export default function Header() {
   }, []);
 
   return (
-        <header className="bg-gray-900/90 backdrop-blur-sm border-b border-gray-700 px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
+        <header className="fixed top-0 left-0 right-0 bg-gray-900/90 backdrop-blur-sm border-b border-gray-700 px-4 sm:px-6 lg:px-8 py-4 sm:py-6 z-50">
       <div className="flex items-center justify-between max-w-7xl mx-auto">
         {/* Left side - Hamburger, Logo and Navigation */}
         <div className="flex items-center gap-3 sm:gap-6">

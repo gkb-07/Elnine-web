@@ -29,6 +29,10 @@ h1, h2, h3, h4, h5, h6, .heading {
   background: linear-gradient(135deg, #1a0b2e 0%, #2d1b69 50%, #1a0b2e 100%);
 }
 
+.gradient-dark-purple {
+  background: linear-gradient(to bottom right, rgb(17 24 39), rgb(88 28 135), rgb(17 24 39));
+}
+
 .dark-card {
   background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(10px);

@@ -75,7 +75,7 @@ export default function TempCategoriesPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900 py-12 px-4 sm:px-6 lg:px-8 text-white">
+    <div className="min-h-screen gradient-dark-purple py-12 px-4 sm:px-6 lg:px-8 text-white">
       <div className="max-w-7xl mx-auto">
         <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-8 text-center font-section-title-purple capitalize">
           {category} Books

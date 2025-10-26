@@ -43,6 +43,10 @@ export default {
       borderRadius: {
         xl: "1rem",
       },
+      backgroundImage: {
+        'gradient-dark-purple': 'linear-gradient(to bottom right, rgb(17 24 39), rgb(88 28 135), rgb(17 24 39))',
+        'gradient-purple-dark': 'linear-gradient(to bottom right, rgb(88 28 135), rgb(126 34 206), rgb(67 56 202))',
+      },
     },
   },
   plugins: [],

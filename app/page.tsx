@@ -2,6 +2,7 @@ import Link from "next/link";
 import { supabase } from '@/lib/supabase';
 import { Suspense } from 'react';
 import HomeSections from '@/components/HomeSections';
+import { MEDIA_PATHS, PAGINATION, CATEGORIES } from '@/lib/constants';
 
 // Fetch books from Supabase (prioritize books with covers)
 async function getBooks() {
@@ -21,7 +22,7 @@ async function getBooks() {
 }
 
 // Fetch books by category (logical sorting: covers first, then newest)
-async function getBooksByCategory(category: string, limit = 12) {
+async function getBooksByCategory(category: string, limit = PAGINATION.CATEGORY_LIMIT) {
   const { data: books, error } = await supabase
     .from('books')
     .select('*')
@@ -75,7 +76,7 @@ async function getBooksByCategory(category: string, limit = 12) {
 }
 
 // Fetch trending books (logical sorting: covers first, then newest)
-async function getTrendingBooks(limit = 12) {
+async function getTrendingBooks(limit = PAGINATION.TRENDING_LIMIT) {
   const { data: books, error } = await supabase
     .from('books')
     .select('*')
@@ -113,12 +114,12 @@ export default async function HomePage() {
     fictionBooks
   ] = await Promise.all([
     getBooks(),
-    getTrendingBooks(12),
-    getBooksByCategory('fiction', 12)
+    getTrendingBooks(),
+    getBooksByCategory(CATEGORIES.FICTION)
   ]);
 
   return (
-    <div className="bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900 min-h-screen">
+    <div className="gradient-dark-purple min-h-screen">
       {/* Hero Section with Video Background */}
       <section 
         className="relative h-[60vh] sm:h-[70vh] lg:h-[80vh] overflow-hidden z-0"
@@ -141,7 +142,7 @@ export default async function HomePage() {
               height: '100%'
             }}
           >
-            <source src="/videos/Video_Generation_Request_For_Website.mp4" type="video/mp4" />
+            <source src={MEDIA_PATHS.HERO_VIDEO} type="video/mp4" />
             {/* Fallback for browsers that don't support video */}
             <div className="w-full h-full bg-gradient-to-br from-purple-900 via-purple-700 to-indigo-800"></div>
           </video>
@@ -172,7 +173,7 @@ export default async function HomePage() {
       </section>
 
       {/* Main Content - Always show sections */}
-      <div className="py-8 bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900">
+      <div className="py-8 gradient-dark-purple">
         <Suspense fallback={<div className="text-center py-8">Loading...</div>}>
           <HomeSections 
             allBooks={allBooks}

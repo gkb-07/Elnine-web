@@ -9,7 +9,12 @@ import { AudioPlayerProvider } from "@/contexts/AudioPlayerContext";
 import ScrollAnimations from "@/components/ui/ScrollAnimations";
 import ChapterNavigationHandler from "@/components/player/ChapterNavigationHandler";
 
-export default async function RootLayout({ children }: { children: React.ReactNode }) {
+export const metadata = {
+  title: 'Audiobook Platform',
+  description: 'Immerse in your fantasies with our premium audiobook collection',
+};
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <body>

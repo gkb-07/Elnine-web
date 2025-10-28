@@ -1,11 +1,12 @@
 import Link from "next/link";
-import { supabase } from '@/lib/supabase';
+import { createSupabaseServerClient } from '@/lib/supabase/server';
 import { Suspense } from 'react';
 import HomeSections from '@/components/HomeSections';
 import { MEDIA_PATHS, PAGINATION, CATEGORIES } from '@/lib/constants';
 
 // Fetch books from Supabase (prioritize books with covers)
 async function getBooks() {
+  const supabase = await createSupabaseServerClient();
   const { data: books, error } = await supabase
     .from('books')
     .select('*')
@@ -23,6 +24,7 @@ async function getBooks() {
 
 // Fetch books by category (logical sorting: covers first, then newest)
 async function getBooksByCategory(category: string, limit = PAGINATION.CATEGORY_LIMIT) {
+  const supabase = await createSupabaseServerClient();
   const { data: books, error } = await supabase
     .from('books')
     .select('*')
@@ -32,7 +34,8 @@ async function getBooksByCategory(category: string, limit = PAGINATION.CATEGORY_
   if (error) {
     console.error('Error fetching books by category:', error);
     // Fallback: if category column doesn't exist, get all books and apply custom sorting
-    const { data: fallbackBooks } = await supabase
+    const supabaseFallback = await createSupabaseServerClient();
+    const { data: fallbackBooks } = await supabaseFallback
       .from('books')
       .select('*')
       .eq('is_published', true);
@@ -77,6 +80,7 @@ async function getBooksByCategory(category: string, limit = PAGINATION.CATEGORY_
 
 // Fetch trending books (logical sorting: covers first, then newest)
 async function getTrendingBooks(limit = PAGINATION.TRENDING_LIMIT) {
+  const supabase = await createSupabaseServerClient();
   const { data: books, error } = await supabase
     .from('books')
     .select('*')

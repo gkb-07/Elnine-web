@@ -9,7 +9,7 @@ import { AudioPlayerProvider } from "@/contexts/AudioPlayerContext";
 import ScrollAnimations from "@/components/ui/ScrollAnimations";
 import ChapterNavigationHandler from "@/components/player/ChapterNavigationHandler";
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <body>

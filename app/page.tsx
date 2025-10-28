@@ -4,6 +4,8 @@ import { Suspense } from 'react';
 import HomeSections from '@/components/HomeSections';
 import { MEDIA_PATHS, PAGINATION, CATEGORIES } from '@/lib/constants';
 
+export const dynamic = 'force-dynamic';
+
 // Fetch books from Supabase (prioritize books with covers)
 async function getBooks() {
   const supabase = await createSupabaseServerClient();
@@ -39,41 +41,43 @@ async function getBooksByCategory(category: string, limit = PAGINATION.CATEGORY_
       .from('books')
       .select('*')
       .eq('is_published', true);
-    
+
     if (!fallbackBooks) return [];
-    
-    console.log('Top Picks - All books:', fallbackBooks.map(b => b.title));
+
+    const fallbackBooksAny = fallbackBooks as any[];
+    console.log('Top Picks - All books:', fallbackBooksAny.map(b => b.title));
 
     // Logical sorting: prioritize books with covers, then by creation date
-    const sortedBooks = fallbackBooks.sort((a, b) => {
+    const sortedBooks = fallbackBooksAny.sort((a: any, b: any) => {
       // First priority: books with covers
       if (a.cover_url && !b.cover_url) return -1;
       if (!a.cover_url && b.cover_url) return 1;
-      
+
       // Second priority: creation date (newest first)
       return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
     });
 
-    console.log('Top Picks - Sorted books:', sortedBooks.map(b => b.title));
+    console.log('Top Picks - Sorted books:', sortedBooks.map((b: any) => b.title));
 
     return sortedBooks.slice(0, limit);
   }
 
   if (!books) return [];
 
-  console.log('Top Picks Category - All books:', books.map(b => b.title));
+  const booksAny = books as any[];
+  console.log('Top Picks Category - All books:', booksAny.map(b => b.title));
 
   // Logical sorting: prioritize books with covers, then by creation date
-  const sortedBooks = books.sort((a, b) => {
+  const sortedBooks = booksAny.sort((a: any, b: any) => {
     // First priority: books with covers
     if (a.cover_url && !b.cover_url) return -1;
     if (!a.cover_url && b.cover_url) return 1;
-    
+
     // Second priority: creation date (newest first)
     return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
   });
 
-  console.log('Top Picks Category - Sorted books:', sortedBooks.map(b => b.title));
+  console.log('Top Picks Category - Sorted books:', sortedBooks.map((b: any) => b.title));
 
   return sortedBooks.slice(0, limit);
 }
@@ -93,19 +97,20 @@ async function getTrendingBooks(limit = PAGINATION.TRENDING_LIMIT) {
 
   if (!books) return [];
 
-  console.log('All books:', books.map(b => b.title));
+  const booksAny = books as any[];
+  console.log('All books:', booksAny.map(b => b.title));
 
   // Logical sorting: prioritize books with covers, then by creation date
-  const sortedBooks = books.sort((a, b) => {
+  const sortedBooks = booksAny.sort((a: any, b: any) => {
     // First priority: books with covers
     if (a.cover_url && !b.cover_url) return -1;
     if (!a.cover_url && b.cover_url) return 1;
-    
+
     // Second priority: creation date (newest first)
     return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
   });
 
-  console.log('Sorted books:', sortedBooks.map(b => b.title));
+  console.log('Sorted books:', sortedBooks.map((b: any) => b.title));
   
   return sortedBooks.slice(0, limit);
 }

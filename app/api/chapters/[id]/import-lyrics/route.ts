@@ -17,7 +17,7 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ id:
     .from('chapters')
     .select('id, audio_url')
     .eq('id', chapterId)
-    .single();
+    .maybeSingle();
   if (chErr || !chapter) return NextResponse.json({ error: 'chapter_not_found' }, { status: 404 });
 
   let lrcText: string | null = null;
@@ -26,16 +26,20 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ id:
     const res = await fetch(body.lrcUrl);
     if (!res.ok) return NextResponse.json({ error: 'cannot_fetch_lrc' }, { status: 400 });
     lrcText = await res.text();
-  } else if (chapter.audio_url) {
+  } else {
     // Try to infer .lrc next to the audio file
-    try {
-      const url = new URL(chapter.audio_url);
-      const lrcUrl = chapter.audio_url.replace(/\.[^/.]+$/, '.lrc');
-      const res = await fetch(lrcUrl);
-      if (res.ok) {
-        lrcText = await res.text();
-      }
-    } catch {}
+    const chapterAny = chapter as any;
+    if (chapterAny?.audio_url) {
+      try {
+        const audioUrl = chapterAny.audio_url as string;
+        const url = new URL(audioUrl);
+        const lrcUrl = audioUrl.replace(/\.[^/.]+$/, '.lrc');
+        const res = await fetch(lrcUrl);
+        if (res.ok) {
+          lrcText = await res.text();
+        }
+      } catch {}
+    }
   }
 
   if (!lrcText) {
@@ -43,7 +47,8 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ id:
   }
 
   const parsed = parseLrc(lrcText);
-  await supabase.from('chapters').update({ lyrics: parsed }).eq('id', chapterId);
+  const supabaseAny = supabase as any;
+  await supabaseAny.from('chapters').update({ lyrics: parsed }).eq('id', chapterId);
 
   return NextResponse.json({ ok: true, lines: parsed.length });
 }

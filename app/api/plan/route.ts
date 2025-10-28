@@ -14,7 +14,8 @@ export async function GET(req: NextRequest) {
   }
 
   // Ensure profiles row exists
-  await supabase.from('profiles').upsert({ id: user.id, plan: set }, { onConflict: 'id' });
+  const supabaseAny = supabase as any;
+  await supabaseAny.from('profiles').upsert({ id: user.id, plan: set }, { onConflict: 'id' });
 
   return NextResponse.redirect(new URL('/profile', req.url));
 }
